@@ -5,15 +5,16 @@ import 'package:nacey_flutter_tools/theme/wdfw/wdfw_colors.dart';
 
 import 'themes.dart';
 
-export 'wdfw/wdfw_alert_dialog.dart';
-export 'wdfw/wdfw_buttons.dart';
+export 'wdfw/wdfw_alert_dialog.dart' show wdfwShowAlert;
+export 'wdfw/wdfw_buttons.dart' show WDFWbutton;
 export 'wdfw/wdfw_colors.dart';
-export 'wdfw/wdfw_counter_field.dart';
-export 'wdfw/wdfw_date_field.dart';
-export 'wdfw/wdfw_like_or_not.dart';
-export 'wdfw/wdfw_search_delegate.dart';
-export 'wdfw/wdfw_sliding_segmented_controller.dart';
-export 'wdfw/wdfw_text_field.dart';
+export 'wdfw/wdfw_counter_field.dart' show WDFWnumberInput;
+export 'wdfw/wdfw_date_field.dart' show DateField;
+export 'wdfw/wdfw_like_or_not.dart' show LikeOrNot;
+export 'wdfw/wdfw_search_delegate.dart'
+    show wdfwShowSearchDelegate, WDFWSearchDelegate;
+export 'wdfw/wdfw_sliding_segmented_controller.dart' show WDFWslider;
+export 'wdfw/wdfw_text_field.dart' show WDFWtext;
 
 class WDFWTheme extends Theme {
   WDFWTheme({
