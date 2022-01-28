@@ -2,8 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'colors.dart';
-import 'wdfw/wdfw_colors.dart';
+import 'themes.dart';
+
+export 'wdfw/wdfw_alert_dialog.dart';
+export 'wdfw/wdfw_buttons.dart';
+export 'wdfw/wdfw_colors.dart';
+export 'wdfw/wdfw_counter_field.dart';
+export 'wdfw/wdfw_date_field.dart';
+export 'wdfw/wdfw_like_or_not.dart';
+export 'wdfw/wdfw_search_delegate.dart';
+export 'wdfw/wdfw_sliding_segmented_controller.dart';
+export 'wdfw/wdfw_text_field.dart';
 
 class WDFWTheme extends Theme {
   WDFWTheme({
@@ -196,8 +205,8 @@ class WDFWTheme extends Theme {
         radioTheme: ThemeData.light().radioTheme,
         switchTheme: ThemeData.light().switchTheme,
         progressIndicatorTheme: ThemeData.light().progressIndicatorTheme,
-      )..addTheme(const WDFWCustomThemeFields(
-    sliverTopperColor: wdfwGreen500,
+      )..addTheme(WDFWFields(
+          sliverTopperColor: wdfwGreen500,
           iosSystemBlue: iosSystemBlue,
           iosSystemGreen: iosSystemGreen,
           iosSystemIndigo: iosSystemIndigo,
@@ -213,6 +222,10 @@ class WDFWTheme extends Theme {
           iosSystemGray4: iosSystemGray4,
           iosSystemGray5: iosSystemGray5,
           iosSystemGray6: iosSystemGray6,
+          fireEngineRed: fireEngineRed,
+          stopSignRed: stopSignRed,
+          xMasGreen: xMasGreen,
+          twitterBlue: twitterBlue,
         ));
 
   static ThemeData get darkTheme => ThemeData.dark().copyWith(
@@ -402,8 +415,8 @@ class WDFWTheme extends Theme {
         radioTheme: ThemeData.dark().radioTheme,
         switchTheme: ThemeData.dark().switchTheme,
         progressIndicatorTheme: ThemeData.dark().progressIndicatorTheme,
-      )..addTheme(const WDFWCustomThemeFields(
-    sliverTopperColor: wdfwGreyWarm900,
+      )..addTheme(WDFWFields(
+          sliverTopperColor: wdfwGreyWarm900,
           iosSystemBlue: iosSystemBlueNight,
           iosSystemGreen: iosSystemGreenNight,
           iosSystemIndigo: iosSystemIndigoNight,
@@ -419,34 +432,24 @@ class WDFWTheme extends Theme {
           iosSystemGray4: iosSystemGray4Night,
           iosSystemGray5: iosSystemGray5Night,
           iosSystemGray6: iosSystemGray6Night,
+          fireEngineRed: fireEngineRed,
+          stopSignRed: stopSignRed,
+          xMasGreen: xMasGreen,
+          twitterBlue: twitterBlue,
         ));
 
   static ThemeData get fallback => lightTheme;
 }
 
-class WDFWCustomThemeFields {
-  final Color sliverTopperColor;
-  final Color iosSystemBlue;
-  final Color iosSystemGreen;
-  final Color iosSystemIndigo;
-  final Color iosSystemOrange;
-  final Color iosSystemPink;
-  final Color iosSystemPurple;
-  final Color iosSystemRed;
-  final Color iosSystemTeal;
-  final Color iosSystemYellow;
-  final Color iosSystemGray;
-  final Color iosSystemGray2;
-  final Color iosSystemGray3;
-  final Color iosSystemGray4;
-  final Color iosSystemGray5;
-  final Color iosSystemGray6;
-  final Color fireEngineRed;
-  final Color stopSignRed;
-  final Color xMasGreen;
-  final Color twitterBlue;
+CustomThemeFields wdfwTheme(BuildContext context) => Theme.of(context).themed;
 
-  const WDFWCustomThemeFields({
+class WDFWFields extends CustomThemeFields {
+  late final Color sliverTopperColor;
+  late final Color fireEngineRed;
+  late final Color stopSignRed;
+  late final Color xMasGreen;
+
+  WDFWFields({
     Color? sliverTopperColor,
     Color? iosSystemBlue,
     Color? iosSystemGreen,
@@ -468,45 +471,25 @@ class WDFWCustomThemeFields {
     Color? xMasGreen,
     Color? twitterBlue,
   })  : sliverTopperColor = sliverTopperColor ?? Colors.pink,
-        iosSystemBlue = iosSystemBlue ?? Colors.blue,
-        iosSystemGreen = iosSystemGreen ?? Colors.green,
-        iosSystemIndigo = iosSystemIndigo ?? Colors.indigo,
-        iosSystemOrange = iosSystemOrange ?? Colors.orange,
-        iosSystemPink = iosSystemPink ?? Colors.pink,
-        iosSystemPurple = iosSystemPurple ?? Colors.purple,
-        iosSystemRed = iosSystemRed ?? Colors.red,
-        iosSystemTeal = iosSystemTeal ?? Colors.teal,
-        iosSystemYellow = iosSystemYellow ?? Colors.yellow,
-        iosSystemGray = iosSystemGray ?? Colors.grey,
-        iosSystemGray2 = iosSystemGray2 ?? Colors.grey,
-        iosSystemGray3 = iosSystemGray3 ?? Colors.grey,
-        iosSystemGray4 = iosSystemGray4 ?? Colors.blueGrey,
-        iosSystemGray5 = iosSystemGray5 ?? Colors.blueGrey,
-        iosSystemGray6 = iosSystemGray6 ?? Colors.blueGrey,
         fireEngineRed = fireEngineRed ?? const Color(0xffce2029),
         stopSignRed = stopSignRed ?? const Color(0xffF9152F),
         xMasGreen = xMasGreen ?? const Color(0xff006400),
-        twitterBlue = twitterBlue ?? const Color(0xff55acee);
+        super(
+          iosSystemBlue: iosSystemBlue,
+          iosSystemGreen: iosSystemGreen,
+          iosSystemIndigo: iosSystemIndigo,
+          iosSystemOrange: iosSystemOrange,
+          iosSystemPink: iosSystemPink,
+          iosSystemPurple: iosSystemPurple,
+          iosSystemRed: iosSystemRed,
+          iosSystemTeal: iosSystemTeal,
+          iosSystemYellow: iosSystemYellow,
+          iosSystemGray: iosSystemGray,
+          iosSystemGray2: iosSystemGray2,
+          iosSystemGray3: iosSystemGray3,
+          iosSystemGray4: iosSystemGray4,
+          iosSystemGray5: iosSystemGray5,
+          iosSystemGray6: iosSystemGray6,
+          twitterBlue: twitterBlue,
+        );
 }
-
-extension ThemeDataExtension on ThemeData {
-  static final Map<InputDecorationTheme, WDFWCustomThemeFields> _custom = {};
-
-  void addTheme(WDFWCustomThemeFields custom) {
-    // can't use reference to ThemeData since Theme.of() can create a new localized instance from the original theme. Use internal fields, in this case InputDecoreationTheme reference which is not deep copied but simply a reference is copied
-    _custom[inputDecorationTheme] = custom;
-  }
-
-  static WDFWCustomThemeFields? empty;
-
-  WDFWCustomThemeFields get wdfw {
-    var x = _custom[inputDecorationTheme];
-    if (x == null) {
-      empty ??= const WDFWCustomThemeFields();
-      x = empty;
-    }
-    return x!;
-  }
-}
-
-WDFWCustomThemeFields wdfwTheme(BuildContext context) => Theme.of(context).wdfw;
