@@ -3,6 +3,7 @@ export 'colors.dart';
 import 'package:flutter/material.dart';
 
 export 'wdfw_theme.dart';
+export 'colors.dart';
 
 extension ThemeDataExtension on ThemeData {
   static final Map<InputDecorationTheme, CustomThemeFields> _custom = {};
