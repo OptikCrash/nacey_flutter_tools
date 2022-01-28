@@ -2,7 +2,7 @@ export 'colors.dart';
 
 import 'package:flutter/material.dart';
 
-export 'wdfw_theme.dart';
+export 'wdfw_theme.dart' show WDFWTheme, wdfwTheme, WDFWFields;
 export 'colors.dart';
 
 extension ThemeDataExtension on ThemeData {

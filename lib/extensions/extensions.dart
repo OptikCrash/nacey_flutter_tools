@@ -1,4 +1,4 @@
-export 'date.dart';
-export 'number.dart';
-export 'string.dart';
-export 'utility.dart';
+export 'date.dart' show DateString, StringDate, DateFormatted;
+export 'number.dart' show DigitsOf;
+export 'string.dart' show CapitalizeString, LimitLength;
+export 'utility.dart' show ListExt;
