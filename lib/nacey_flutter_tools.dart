@@ -12,4 +12,4 @@ export 'form_validators.dart'
         urlRegex;
 export 'extensions/extensions.dart';
 export 'theme/themes.dart' show ThemeDataExtension, CustomThemeFields;
-export 'widgets/widgets.dart';
+export 'widgets/form_inputs/form_inputs.dart';
