@@ -1,1 +1,1 @@
-export 'n_text_field.dart';
+export 'n_text_field.dart' show NTextField;
