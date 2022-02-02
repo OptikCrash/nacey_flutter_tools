@@ -18,7 +18,7 @@ class NTextField extends StatefulWidget {
     this.textInputAction,
     this.style,
     this.strutStyle,
-    this.textDirection,
+    this.textDirection = TextDirection.ltr,
     this.textAlign = TextAlign.start,
     this.textAlignVertical,
     this.autofocus = false,
@@ -59,36 +59,23 @@ class NTextField extends StatefulWidget {
     this.scrollController,
     this.restorationId,
     this.enableIMEPersonalizedLearning = true,
-    //////////////////////////////////////////////
-    // String? placeholder,
-    // TextStyle? placeholderStyle = const TextStyle(
-    //   fontWeight: FontWeight.w400,
-    //   color: CupertinoColors.placeholderText,
-    // ),
-    /////////////////////////////////////////////////
     this.icon,
     this.iconColor,
     this.prefixIcon,
     this.prefixIconConstraints,
     this.prefix,
-    this.prefixText,
-    this.prefixStyle,
     this.prefixIconColor,
     this.label,
     this.labelText,
     this.labelStyle,
     this.floatingLabelStyle,
-
-    /// label text will default replace the label.
     this.hintText, //placeholder
     this.hintStyle = const TextStyle(
       fontWeight: FontWeight.w400,
       color: CupertinoColors.placeholderText,
     ), //
-    TextDirection? hintTextDirection, //null
+    this.hintTextDirection,
     this.hintMaxLines,
-
-    /// hint will take placeholder spot
     this.helperText,
     this.helperStyle,
     this.helperMaxLines,
@@ -121,10 +108,12 @@ class NTextField extends StatefulWidget {
     this.semanticCounterText,
     this.alignLabelWithHint,
     this.constraints,
+    this.useMaterial,
+    this.useCupertino,
   })  : assert(!(label != null && labelText != null),
             'Declaring both label and labelText is not supported.'),
-        assert(!(prefix != null && prefixText != null),
-            'Declaring both prefix and prefixText is not supported.'),
+        assert(!(prefix != null && label != null),
+            'Declaring both prefix and label is not supported.'),
         assert(!(suffix != null && suffixText != null),
             'Declaring both suffix and suffixText is not supported.'),
         assert(initialValue == null || controller == null),
@@ -144,106 +133,107 @@ class NTextField extends StatefulWidget {
         assert(maxLength == null ||
             maxLength == TextField.noMaxLength ||
             maxLength > 0),
+        assert(!(useMaterial != null && useCupertino != null),
+            'Declaring both Material design and Cupertino human interface is not supported.'),
         super(key: key);
 
   final TextEditingController? controller;
   final String? initialValue;
-  FocusNode? focusNode;
-  TextInputType? keyboardType;
-  TextCapitalization textCapitalization;
-  TextInputAction? textInputAction;
-  TextStyle? style;
-  StrutStyle? strutStyle;
-  TextDirection? textDirection;
-  TextAlign textAlign;
-  TextAlignVertical? textAlignVertical;
-  bool autofocus;
-  bool readOnly;
-  ToolbarOptions? toolbarOptions;
-  bool? showCursor;
-  String obscuringCharacter;
-  bool obscureText;
-  bool autocorrect;
-  SmartDashesType? smartDashesType;
-  SmartQuotesType? smartQuotesType;
-  bool enableSuggestions;
-  MaxLengthEnforcement? maxLengthEnforcement;
-  int? maxLines;
-  int? minLines;
-  bool expands;
-  int? maxLength;
-  ValueChanged<String>? onChanged;
-  GestureTapCallback? onTap;
-  VoidCallback? onEditingComplete;
-  ValueChanged<String>? onFieldSubmitted;
-  FormFieldSetter<String>? onSaved;
-  FormFieldValidator<String>? validator;
-  List<TextInputFormatter>? inputFormatters;
-  bool enabled;
-  double cursorWidth;
-  double? cursorHeight;
-  Radius cursorRadius;
-  Color? cursorColor;
-  Brightness? keyboardAppearance;
-  EdgeInsets scrollPadding;
-  bool enableInteractiveSelection;
-  TextSelectionControls? selectionControls;
-  InputCounterWidgetBuilder? buildCounter;
-  ScrollPhysics? scrollPhysics;
-  Iterable<String>? autofillHints;
-  AutovalidateMode autovalidateMode;
-  ScrollController? scrollController;
-  String? restorationId;
-  bool enableIMEPersonalizedLearning;
-  //region decoration
-  Widget? icon;
-  Color? iconColor;
-  Widget? prefixIcon;
-  BoxConstraints? prefixIconConstraints;
-  Widget? prefix;
-  String? prefixText;
-  TextStyle? prefixStyle;
-  Color? prefixIconColor;
-  Widget? label;
-  String? labelText;
-  TextStyle? labelStyle;
-  TextStyle? floatingLabelStyle;
-  String? hintText;
-  TextStyle? hintStyle;
-  TextDirection? hintTextDirection;
-  int? hintMaxLines;
-  String? helperText;
-  TextStyle? helperStyle;
-  int? helperMaxLines;
-  String? errorText;
-  TextStyle? errorStyle;
-  int? errorMaxLines;
-  FloatingLabelBehavior? floatingLabelBehavior;
-  bool? isDense;
-  EdgeInsetsGeometry? contentPadding;
-  bool isCollapsed;
-  Widget? suffixIcon;
-  Widget? suffix;
-  String? suffixText;
-  TextStyle? suffixStyle;
-  Color? suffixIconColor;
-  BoxConstraints? suffixIconConstraints;
-  String? counterText;
-  Widget? counter;
-  TextStyle? counterStyle;
-  bool? filled;
-  Color? fillColor;
-  Color? focusColor;
-  Color? hoverColor;
-  InputBorder? errorBorder;
-  InputBorder? focusedBorder;
-  InputBorder? focusedErrorBorder;
-  InputBorder? disabledBorder;
-  InputBorder? enabledBorder;
-  InputBorder? border;
-  String? semanticCounterText;
-  bool? alignLabelWithHint;
-  BoxConstraints? constraints;
+  final FocusNode? focusNode;
+  final TextInputType? keyboardType;
+  final TextCapitalization textCapitalization;
+  final TextInputAction? textInputAction;
+  final TextStyle? style;
+  final StrutStyle? strutStyle;
+  final TextDirection? textDirection;
+  final TextAlign textAlign;
+  final TextAlignVertical? textAlignVertical;
+  final bool autofocus;
+  final bool readOnly;
+  final ToolbarOptions? toolbarOptions;
+  final bool? showCursor;
+  final String obscuringCharacter;
+  final bool obscureText;
+  final bool autocorrect;
+  final SmartDashesType? smartDashesType;
+  final SmartQuotesType? smartQuotesType;
+  final bool enableSuggestions;
+  final MaxLengthEnforcement? maxLengthEnforcement;
+  final int? maxLines;
+  final int? minLines;
+  final bool expands;
+  final int? maxLength;
+  final ValueChanged<String>? onChanged;
+  final GestureTapCallback? onTap;
+  final VoidCallback? onEditingComplete;
+  final ValueChanged<String>? onFieldSubmitted;
+  final FormFieldSetter<String>? onSaved;
+  final FormFieldValidator<String>? validator;
+  final List<TextInputFormatter>? inputFormatters;
+  final bool enabled;
+  final double cursorWidth;
+  final double? cursorHeight;
+  final Radius cursorRadius;
+  final Color? cursorColor;
+  final Brightness? keyboardAppearance;
+  final EdgeInsets scrollPadding;
+  final bool enableInteractiveSelection;
+  final TextSelectionControls? selectionControls;
+  final InputCounterWidgetBuilder? buildCounter;
+  final ScrollPhysics? scrollPhysics;
+  final Iterable<String>? autofillHints;
+  final AutovalidateMode autovalidateMode;
+  final ScrollController? scrollController;
+  final String? restorationId;
+  final bool enableIMEPersonalizedLearning;
+  final Widget? icon;
+  final Color? iconColor;
+  final Widget? prefixIcon;
+  final BoxConstraints? prefixIconConstraints;
+  final Widget? prefix;
+  final Color? prefixIconColor;
+  final Widget? label;
+  final String? labelText;
+  final TextStyle? labelStyle;
+  final TextStyle? floatingLabelStyle;
+  final String? hintText;
+  final TextStyle? hintStyle;
+  final TextDirection? hintTextDirection;
+  final int? hintMaxLines;
+  final String? helperText;
+  final TextStyle? helperStyle;
+  final int? helperMaxLines;
+  final String? errorText;
+  final TextStyle? errorStyle;
+  final int? errorMaxLines;
+  final FloatingLabelBehavior? floatingLabelBehavior;
+  final bool? isDense;
+  final EdgeInsetsGeometry? contentPadding;
+  final bool isCollapsed;
+  final Widget? suffixIcon;
+  final Widget? suffix;
+  final String? suffixText;
+  final TextStyle? suffixStyle;
+  final Color? suffixIconColor;
+  final BoxConstraints? suffixIconConstraints;
+  final String? counterText;
+  final Widget? counter;
+  final TextStyle? counterStyle;
+  final bool? filled;
+  final Color? fillColor;
+  final Color? focusColor;
+  final Color? hoverColor;
+  final InputBorder? errorBorder;
+  final InputBorder? focusedBorder;
+  final InputBorder? focusedErrorBorder;
+  final InputBorder? disabledBorder;
+  final InputBorder? enabledBorder;
+  final InputBorder? border;
+  final String? semanticCounterText;
+  final bool? alignLabelWithHint;
+  final BoxConstraints? constraints;
+  final bool? useMaterial;
+  final bool? useCupertino;
   //endregion
 
   @override
@@ -253,133 +243,104 @@ class NTextField extends StatefulWidget {
 class _NTextFieldState extends State<NTextField> {
   @override
   Widget build(BuildContext context) {
-    InputDecoration decoration = InputDecoration(
-      icon: widget.icon,
-      iconColor: widget.iconColor,
-      label: widget.label,
-      labelText: widget.labelText,
-      labelStyle: widget.labelStyle,
-      floatingLabelStyle: widget.floatingLabelStyle,
-      helperText: widget.helperText,
-      helperStyle: widget.helperStyle,
-      helperMaxLines: widget.helperMaxLines,
-      hintText: widget.hintText,
-      hintStyle: widget.hintStyle,
-      hintTextDirection: widget.hintTextDirection,
-      hintMaxLines: widget.hintMaxLines,
-      errorText: widget.errorText,
-      errorStyle: widget.errorStyle,
-      errorMaxLines: widget.errorMaxLines,
-      floatingLabelBehavior: widget.floatingLabelBehavior,
-      isCollapsed: widget.isCollapsed,
-      isDense: widget.isDense,
-      contentPadding: widget.contentPadding,
-      prefixIcon: widget.prefixIcon,
-      prefixIconConstraints: widget.prefixIconConstraints,
-      prefix: widget.prefix,
-      prefixText: widget.prefixText,
-      prefixStyle: widget.prefixStyle,
-      prefixIconColor: widget.prefixIconColor,
-      suffixIcon: widget.suffixIcon,
-      suffix: widget.suffix,
-      suffixText: widget.suffixText,
-      suffixStyle: widget.suffixStyle,
-      suffixIconColor: widget.suffixIconColor,
-      suffixIconConstraints: widget.suffixIconConstraints,
-      counter: widget.counter,
-      counterText: widget.counterText,
-      counterStyle: widget.counterStyle,
-      filled: widget.filled,
-      fillColor: widget.fillColor,
-      focusColor: widget.focusColor,
-      hoverColor: widget.hoverColor,
-      errorBorder: widget.errorBorder,
-      focusedBorder: widget.focusedBorder,
-      focusedErrorBorder: widget.focusedErrorBorder,
-      disabledBorder: widget.disabledBorder,
-      enabledBorder: widget.enabledBorder,
-      border: widget.border,
-      semanticCounterText: widget.semanticCounterText,
-      alignLabelWithHint: widget.alignLabelWithHint,
-      constraints: widget.constraints,
-    );
-
-    return Platform.isIOS
-        ? CupertinoFormRow(
-            prefix: widget.icon,
-            child: CupertinoTextField(
-              controller: widget.controller,
-              focusNode: widget.focusNode,
-              placeholder: widget.hintText,
-              placeholderStyle: widget.hintStyle,
-              prefix: widget.prefix,
-              suffix: widget.suffix,
-              keyboardType: widget.keyboardType,
-              textInputAction: widget.textInputAction,
-              textCapitalization: widget.textCapitalization,
-              style: widget.style,
-              strutStyle: widget.strutStyle,
-              textAlign: widget.textAlign,
-              textAlignVertical: widget.textAlignVertical,
-              textDirection: widget.textDirection,
-              readOnly: widget.readOnly,
-              toolbarOptions: widget.toolbarOptions,
-              showCursor: widget.showCursor,
-              autofocus: widget.autofocus,
-              obscuringCharacter: widget.obscuringCharacter,
-              obscureText: widget.obscureText,
-              autocorrect: widget.autocorrect,
-              smartDashesType: widget.smartDashesType,
-              smartQuotesType: widget.smartQuotesType,
-              enableSuggestions: widget.enableSuggestions,
-              maxLines: widget.maxLines,
-              minLines: widget.minLines,
-              expands: widget.expands,
-              maxLength: widget.maxLength,
-              maxLengthEnforcement: widget.maxLengthEnforcement,
-              onChanged: widget.onChanged,
-              onEditingComplete: widget.onEditingComplete,
-              onSubmitted: widget.onSaved,
-              inputFormatters: widget.inputFormatters,
-              enabled: widget.enabled,
-              cursorWidth: widget.cursorWidth,
-              cursorHeight: widget.cursorHeight,
-              cursorRadius: widget.cursorRadius,
-              cursorColor: widget.cursorColor,
-              keyboardAppearance: widget.keyboardAppearance,
-              scrollPadding: widget.scrollPadding,
-              enableInteractiveSelection: widget.enableInteractiveSelection,
-              selectionControls: widget.selectionControls,
-              onTap: widget.onTap,
-              scrollController: widget.scrollController,
-              scrollPhysics: widget.scrollPhysics,
-              autofillHints: widget.autofillHints,
-              restorationId: widget.restorationId,
-              enableIMEPersonalizedLearning:
-                  widget.enableIMEPersonalizedLearning,
-            ),
-            helper: Row(
-              children: [
-                if (widget.helperText?.isNotEmpty == true)
-                  Text(widget.helperText!,
-                      style: widget.helperStyle,
-                      maxLines: widget.helperMaxLines),
-                Expanded(child: Container()),
-                if (widget.counterText?.isNotEmpty == true)
-                  Text(widget.counterText!, style: widget.counterStyle)
-              ],
-            ),
-            error: (widget.errorText?.isNotEmpty == true)
-                ? Text(widget.errorText!,
-                    style: widget.errorStyle, maxLines: widget.errorMaxLines)
-                : null,
+    bool _isIOS;
+    if (widget.useCupertino == true) {
+      _isIOS = true;
+    } else if (widget.useMaterial == true) {
+      _isIOS = false;
+    } else {
+      _isIOS = Platform.isIOS;
+    }
+    return _isIOS
+        ? Row(
+            children: [
+              Flexible(
+                flex: 3,
+                child: CupertinoFormRow(
+                  prefix: widget.icon,
+                  child: CupertinoTextFormFieldRow(
+                    controller: widget.controller,
+                    validator: widget.validator,
+                    prefix: _iosPrefix,
+                    onSaved: widget.onSaved,
+                    onChanged: widget.onChanged,
+                    onTap: widget.onTap,
+                    focusNode: widget.focusNode,
+                    placeholder: widget.hintText,
+                    placeholderStyle: widget.hintStyle,
+                    keyboardType: widget.keyboardType,
+                    textInputAction: widget.textInputAction,
+                    textCapitalization: widget.textCapitalization,
+                    style: widget.style,
+                    strutStyle: widget.strutStyle,
+                    textAlign: widget.textAlign,
+                    textAlignVertical: widget.textAlignVertical,
+                    textDirection: widget.textDirection,
+                    readOnly: widget.readOnly,
+                    toolbarOptions: widget.toolbarOptions,
+                    showCursor: widget.showCursor,
+                    autofocus: widget.autofocus,
+                    obscuringCharacter: widget.obscuringCharacter,
+                    obscureText: widget.obscureText,
+                    autocorrect: widget.autocorrect,
+                    smartDashesType: widget.smartDashesType,
+                    smartQuotesType: widget.smartQuotesType,
+                    enableSuggestions: widget.enableSuggestions,
+                    maxLines: widget.maxLines,
+                    minLines: widget.minLines,
+                    expands: widget.expands,
+                    maxLength: widget.maxLength,
+                    onEditingComplete: widget.onEditingComplete,
+                    inputFormatters: widget.inputFormatters,
+                    enabled: widget.enabled,
+                    cursorWidth: widget.cursorWidth,
+                    cursorHeight: widget.cursorHeight,
+                    cursorColor: widget.cursorColor,
+                    keyboardAppearance: widget.keyboardAppearance,
+                    scrollPadding: widget.scrollPadding,
+                    enableInteractiveSelection:
+                        widget.enableInteractiveSelection,
+                    selectionControls: widget.selectionControls,
+                    scrollPhysics: widget.scrollPhysics,
+                    autofillHints: widget.autofillHints,
+                  ),
+                  helper: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      if (widget.helperText?.isNotEmpty == true)
+                        Text(widget.helperText!,
+                            style: widget.helperStyle ??
+                                const TextStyle(fontSize: 14),
+                            maxLines: widget.helperMaxLines ??
+                                Theme.of(context)
+                                    .inputDecorationTheme
+                                    .helperMaxLines),
+                      Expanded(child: Container()),
+                      if (widget.counterText?.isNotEmpty == true)
+                        Text(
+                          widget.counterText!,
+                          style: widget.counterStyle ??
+                              const TextStyle(fontSize: 14),
+                        )
+                    ],
+                  ),
+                  error: (widget.errorText?.isNotEmpty == true)
+                      ? Text(widget.errorText!,
+                          style: widget.errorStyle,
+                          maxLines: widget.errorMaxLines)
+                      : null,
+                ),
+              ),
+              _iosSuffix
+            ],
           )
         : TextFormField(
             key: widget.key,
             controller: widget.controller,
             initialValue: widget.initialValue,
             focusNode: widget.focusNode,
-            decoration: decoration,
+            decoration: _androidDecoration,
             keyboardType: widget.keyboardType,
             textCapitalization: widget.textCapitalization,
             textInputAction: widget.textInputAction,
@@ -428,4 +389,175 @@ class _NTextFieldState extends State<NTextField> {
             enableIMEPersonalizedLearning: widget.enableIMEPersonalizedLearning,
           );
   }
+
+  get _iosPrefix {
+    BoxConstraints constraints;
+    Color color;
+    if (widget.prefixIconConstraints != null) {
+      constraints = widget.prefixIconConstraints!;
+    } else {
+      constraints = BoxConstraints.tight(const Size(24, 36));
+    }
+    if (widget.prefixIconColor != null) {
+      color = widget.prefixIconColor!;
+    } else {
+      color = Theme.of(context).primaryColor;
+    }
+    if (widget.prefix == null &&
+        widget.prefixIcon == null &&
+        widget.label == null &&
+        !(widget.labelText?.isNotEmpty == true)) {
+      return null;
+    } else if (widget.prefix != null &&
+        widget.prefixIcon == null &&
+        widget.label == null &&
+        !(widget.labelText?.isNotEmpty == true)) {
+      return widget.prefix!;
+    } else if (widget.prefix == null &&
+        widget.prefixIcon == null &&
+        widget.label != null &&
+        !(widget.labelText?.isNotEmpty == true)) {
+      return widget.label!;
+    } else if (widget.prefix != null && widget.labelText != null) {
+      return SizedBox(
+        height: constraints.minHeight,
+        child: Row(
+          children: [
+            widget.prefix!,
+            const SizedBox(width: 3),
+            if (widget.labelStyle != null)
+              Text(widget.labelText!, style: widget.labelStyle!),
+            if (widget.labelStyle == null) Text(widget.labelText!),
+          ],
+        ),
+      );
+    } else if (widget.prefix != null && widget.label != null) {
+      return SizedBox(
+        height: constraints.minHeight,
+        child: Row(
+          children: [
+            widget.prefix!,
+            const SizedBox(width: 3),
+            widget.label!,
+          ],
+        ),
+      );
+    } else if (widget.prefixIcon != null && widget.label != null) {
+      return SizedBox(
+        height: constraints.minHeight,
+        child: Row(
+          children: [
+            widget.prefixIcon!,
+            const SizedBox(width: 3),
+            widget.label!,
+          ],
+        ),
+      );
+    } else {
+      return SizedBox(
+        height: constraints.minHeight,
+        child: Row(
+          children: [
+            if (widget.prefixIcon != null) widget.prefixIcon!,
+            const SizedBox(width: 3),
+            if (widget.labelText != null && widget.labelStyle != null)
+              Text(widget.labelText!, style: widget.labelStyle!),
+            if (widget.labelText != null && widget.labelStyle == null)
+              Text(widget.labelText!),
+          ],
+        ),
+      );
+    }
+  }
+
+  get _iosSuffix {
+    if (widget.suffix == null &&
+        widget.suffixText?.isNotEmpty == true &&
+        widget.suffixIcon == null) {
+      return null;
+    } else if (widget.suffix != null) {
+      return Flexible(flex: 1, child: widget.suffix!);
+    } else {
+      BoxConstraints constraints;
+      Color color;
+      if (widget.suffixIconConstraints != null) {
+        constraints = widget.suffixIconConstraints!;
+      } else {
+        constraints = BoxConstraints.tight(const Size(24, 36));
+      }
+      if (widget.suffixIconColor != null) {
+        color = widget.suffixIconColor!;
+      } else {
+        color = Theme.of(context).primaryColor;
+      }
+      return Flexible(
+        flex: 1,
+        child: SizedBox(
+          height: constraints.maxHeight,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (widget.suffixText?.isNotEmpty == true &&
+                  widget.suffixStyle != null)
+                Text(widget.suffixText!, style: widget.suffixStyle!),
+              if (widget.suffixText?.isNotEmpty == true &&
+                  widget.suffixStyle == null)
+                Text(widget.suffixText!),
+              const SizedBox(width: 3),
+              if (widget.suffixIcon != null) widget.suffixIcon!
+            ],
+          ),
+        ),
+      );
+    }
+  }
+
+  get _androidDecoration => InputDecoration(
+        icon: widget.icon,
+        iconColor: widget.iconColor,
+        label: widget.label,
+        labelText: widget.labelText,
+        labelStyle: widget.labelStyle,
+        floatingLabelStyle: widget.floatingLabelStyle,
+        helperText: widget.helperText,
+        helperStyle: widget.helperStyle,
+        helperMaxLines: widget.helperMaxLines,
+        hintText: widget.hintText,
+        hintStyle: widget.hintStyle,
+        hintTextDirection: widget.hintTextDirection,
+        hintMaxLines: widget.hintMaxLines,
+        errorText: widget.errorText,
+        errorStyle: widget.errorStyle,
+        errorMaxLines: widget.errorMaxLines,
+        floatingLabelBehavior: widget.floatingLabelBehavior,
+        isCollapsed: widget.isCollapsed,
+        isDense: widget.isDense,
+        contentPadding: widget.contentPadding,
+        prefixIcon: widget.prefixIcon,
+        prefixIconConstraints: widget.prefixIconConstraints,
+        prefix: widget.prefix,
+        prefixIconColor: widget.prefixIconColor,
+        suffixIcon: widget.suffixIcon,
+        suffix: widget.suffix,
+        suffixText: widget.suffixText,
+        suffixStyle: widget.suffixStyle,
+        suffixIconColor: widget.suffixIconColor,
+        suffixIconConstraints: widget.suffixIconConstraints,
+        counter: widget.counter,
+        counterText: widget.counterText,
+        counterStyle: widget.counterStyle,
+        filled: widget.filled,
+        fillColor: widget.fillColor,
+        focusColor: widget.focusColor,
+        hoverColor: widget.hoverColor,
+        errorBorder: widget.errorBorder,
+        focusedBorder: widget.focusedBorder,
+        focusedErrorBorder: widget.focusedErrorBorder,
+        disabledBorder: widget.disabledBorder,
+        enabledBorder: widget.enabledBorder,
+        border: widget.border,
+        semanticCounterText: widget.semanticCounterText,
+        alignLabelWithHint: widget.alignLabelWithHint,
+        constraints: widget.constraints,
+      );
 }
