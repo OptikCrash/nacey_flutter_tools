@@ -110,6 +110,7 @@ class NTextField extends StatefulWidget {
     this.constraints,
     this.useMaterial,
     this.useCupertino,
+    this.isOutlined = true,
   })  : assert(!(label != null && labelText != null),
             'Declaring both label and labelText is not supported.'),
         assert(!(prefix != null && label != null),
@@ -234,6 +235,7 @@ class NTextField extends StatefulWidget {
   final BoxConstraints? constraints;
   final bool? useMaterial;
   final bool? useCupertino;
+  final bool isOutlined;
   //endregion
 
   @override
@@ -251,14 +253,25 @@ class _NTextFieldState extends State<NTextField> {
     } else {
       _isIOS = Platform.isIOS;
     }
+    double _sizeDiff = 64.0;
+    if (widget.suffix != null) {
+      _sizeDiff = 64.0;
+    } else if (widget.suffixIcon == null && widget.suffixText != null) {
+      _sizeDiff = 128.0;
+    } else if (widget.suffixIcon != null && widget.suffixText != null) {
+      _sizeDiff = 104.0;
+    } else if (widget.suffixIcon == null && widget.suffixText == null) {
+      _sizeDiff = 24.0;
+    }
     return _isIOS
         ? Row(
             children: [
-              Flexible(
-                flex: 3,
+              SizedBox(
+                width: MediaQuery.of(context).size.width - _sizeDiff,
                 child: CupertinoFormRow(
                   prefix: widget.icon,
                   child: CupertinoTextFormFieldRow(
+                    decoration: _iosDecoration,
                     controller: widget.controller,
                     validator: widget.validator,
                     prefix: _iosPrefix,
@@ -335,58 +348,62 @@ class _NTextFieldState extends State<NTextField> {
               _iosSuffix
             ],
           )
-        : TextFormField(
-            key: widget.key,
-            controller: widget.controller,
-            initialValue: widget.initialValue,
-            focusNode: widget.focusNode,
-            decoration: _androidDecoration,
-            keyboardType: widget.keyboardType,
-            textCapitalization: widget.textCapitalization,
-            textInputAction: widget.textInputAction,
-            style: widget.style,
-            strutStyle: widget.strutStyle,
-            textDirection: widget.textDirection,
-            textAlign: widget.textAlign,
-            textAlignVertical: widget.textAlignVertical,
-            autofocus: widget.autofocus,
-            readOnly: widget.readOnly,
-            toolbarOptions: widget.toolbarOptions,
-            showCursor: widget.showCursor,
-            obscuringCharacter: widget.obscuringCharacter,
-            obscureText: widget.obscureText,
-            autocorrect: widget.autocorrect,
-            smartDashesType: widget.smartDashesType,
-            smartQuotesType: widget.smartQuotesType,
-            enableSuggestions: widget.enableSuggestions,
-            maxLengthEnforcement: widget.maxLengthEnforcement,
-            maxLines: widget.maxLines,
-            minLines: widget.minLines,
-            expands: widget.expands,
-            maxLength: widget.maxLength,
-            onChanged: widget.onChanged,
-            onTap: widget.onTap,
-            onEditingComplete: widget.onEditingComplete,
-            onFieldSubmitted: widget.onFieldSubmitted,
-            onSaved: widget.onSaved,
-            validator: widget.validator,
-            inputFormatters: widget.inputFormatters,
-            enabled: widget.enabled,
-            cursorWidth: widget.cursorWidth,
-            cursorHeight: widget.cursorHeight,
-            cursorRadius: widget.cursorRadius,
-            cursorColor: widget.cursorColor,
-            keyboardAppearance: widget.keyboardAppearance,
-            scrollPadding: widget.scrollPadding,
-            enableInteractiveSelection: widget.enableInteractiveSelection,
-            selectionControls: widget.selectionControls,
-            buildCounter: widget.buildCounter,
-            scrollPhysics: widget.scrollPhysics,
-            autofillHints: widget.autofillHints,
-            autovalidateMode: widget.autovalidateMode,
-            scrollController: widget.scrollController,
-            restorationId: widget.restorationId,
-            enableIMEPersonalizedLearning: widget.enableIMEPersonalizedLearning,
+        : Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: TextFormField(
+              key: widget.key,
+              controller: widget.controller,
+              initialValue: widget.initialValue,
+              focusNode: widget.focusNode,
+              decoration: _androidDecoration,
+              keyboardType: widget.keyboardType,
+              textCapitalization: widget.textCapitalization,
+              textInputAction: widget.textInputAction,
+              style: widget.style,
+              strutStyle: widget.strutStyle,
+              textDirection: widget.textDirection,
+              textAlign: widget.textAlign,
+              textAlignVertical: widget.textAlignVertical,
+              autofocus: widget.autofocus,
+              readOnly: widget.readOnly,
+              toolbarOptions: widget.toolbarOptions,
+              showCursor: widget.showCursor,
+              obscuringCharacter: widget.obscuringCharacter,
+              obscureText: widget.obscureText,
+              autocorrect: widget.autocorrect,
+              smartDashesType: widget.smartDashesType,
+              smartQuotesType: widget.smartQuotesType,
+              enableSuggestions: widget.enableSuggestions,
+              maxLengthEnforcement: widget.maxLengthEnforcement,
+              maxLines: widget.maxLines,
+              minLines: widget.minLines,
+              expands: widget.expands,
+              maxLength: widget.maxLength,
+              onChanged: widget.onChanged,
+              onTap: widget.onTap,
+              onEditingComplete: widget.onEditingComplete,
+              onFieldSubmitted: widget.onFieldSubmitted,
+              onSaved: widget.onSaved,
+              validator: widget.validator,
+              inputFormatters: widget.inputFormatters,
+              enabled: widget.enabled,
+              cursorWidth: widget.cursorWidth,
+              cursorHeight: widget.cursorHeight,
+              cursorRadius: widget.cursorRadius,
+              cursorColor: widget.cursorColor,
+              keyboardAppearance: widget.keyboardAppearance,
+              scrollPadding: widget.scrollPadding,
+              enableInteractiveSelection: widget.enableInteractiveSelection,
+              selectionControls: widget.selectionControls,
+              buildCounter: widget.buildCounter,
+              scrollPhysics: widget.scrollPhysics,
+              autofillHints: widget.autofillHints,
+              autovalidateMode: widget.autovalidateMode,
+              scrollController: widget.scrollController,
+              restorationId: widget.restorationId,
+              enableIMEPersonalizedLearning:
+                  widget.enableIMEPersonalizedLearning,
+            ),
           );
   }
 
@@ -512,52 +529,140 @@ class _NTextFieldState extends State<NTextField> {
     }
   }
 
-  get _androidDecoration => InputDecoration(
-        icon: widget.icon,
-        iconColor: widget.iconColor,
-        label: widget.label,
-        labelText: widget.labelText,
-        labelStyle: widget.labelStyle,
-        floatingLabelStyle: widget.floatingLabelStyle,
-        helperText: widget.helperText,
-        helperStyle: widget.helperStyle,
-        helperMaxLines: widget.helperMaxLines,
-        hintText: widget.hintText,
-        hintStyle: widget.hintStyle,
-        hintTextDirection: widget.hintTextDirection,
-        hintMaxLines: widget.hintMaxLines,
-        errorText: widget.errorText,
-        errorStyle: widget.errorStyle,
-        errorMaxLines: widget.errorMaxLines,
-        floatingLabelBehavior: widget.floatingLabelBehavior,
-        isCollapsed: widget.isCollapsed,
-        isDense: widget.isDense,
-        contentPadding: widget.contentPadding,
-        prefixIcon: widget.prefixIcon,
-        prefixIconConstraints: widget.prefixIconConstraints,
-        prefix: widget.prefix,
-        prefixIconColor: widget.prefixIconColor,
-        suffixIcon: widget.suffixIcon,
-        suffix: widget.suffix,
-        suffixText: widget.suffixText,
-        suffixStyle: widget.suffixStyle,
-        suffixIconColor: widget.suffixIconColor,
-        suffixIconConstraints: widget.suffixIconConstraints,
-        counter: widget.counter,
-        counterText: widget.counterText,
-        counterStyle: widget.counterStyle,
-        filled: widget.filled,
-        fillColor: widget.fillColor,
-        focusColor: widget.focusColor,
-        hoverColor: widget.hoverColor,
-        errorBorder: widget.errorBorder,
-        focusedBorder: widget.focusedBorder,
-        focusedErrorBorder: widget.focusedErrorBorder,
-        disabledBorder: widget.disabledBorder,
-        enabledBorder: widget.enabledBorder,
-        border: widget.border,
-        semanticCounterText: widget.semanticCounterText,
-        alignLabelWithHint: widget.alignLabelWithHint,
-        constraints: widget.constraints,
-      );
+  get _iosBorderSide =>
+      BorderSide(color: Theme.of(context).colorScheme.onSurface, width: 0.0);
+
+  get _iosDecoration => widget.isOutlined
+      ? BoxDecoration(
+          color: widget.filled == true
+              ? Theme.of(context).colorScheme.surface
+              : Colors.transparent,
+          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+          border: Border(
+              top: _iosBorderSide,
+              bottom: _iosBorderSide,
+              left: _iosBorderSide,
+              right: _iosBorderSide))
+      : widget.border;
+
+  get _androidDecoration => widget.isOutlined
+      ? InputDecoration(
+          icon: widget.icon,
+          iconColor: widget.iconColor,
+          label: widget.label,
+          labelText: widget.labelText,
+          labelStyle: widget.labelStyle,
+          floatingLabelStyle: widget.floatingLabelStyle,
+          helperText: widget.helperText,
+          helperStyle: widget.helperStyle,
+          helperMaxLines: widget.helperMaxLines,
+          hintText: widget.hintText,
+          hintStyle: widget.hintStyle,
+          hintTextDirection: widget.hintTextDirection,
+          hintMaxLines: widget.hintMaxLines,
+          errorText: widget.errorText,
+          errorStyle: widget.errorStyle,
+          errorMaxLines: widget.errorMaxLines,
+          floatingLabelBehavior: widget.floatingLabelBehavior,
+          isCollapsed: widget.isCollapsed,
+          isDense: widget.isDense,
+          contentPadding: widget.contentPadding,
+          prefixIcon: widget.prefixIcon,
+          prefixIconConstraints: widget.prefixIconConstraints,
+          prefix: widget.prefix,
+          prefixIconColor: widget.prefixIconColor,
+          suffixIcon: widget.suffixIcon,
+          suffix: widget.suffix,
+          suffixText: widget.suffixText,
+          suffixStyle: widget.suffixStyle,
+          suffixIconColor: widget.suffixIconColor,
+          suffixIconConstraints: widget.suffixIconConstraints,
+          counter: widget.counter,
+          counterText: widget.counterText,
+          counterStyle: widget.counterStyle,
+          filled: widget.filled,
+          fillColor: widget.fillColor,
+          focusColor: widget.focusColor,
+          hoverColor: widget.hoverColor,
+          errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: Theme.of(context).errorColor,
+                  width: 1,
+                  style: BorderStyle.solid)),
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: Theme.of(context).primaryColor,
+                  width: 1,
+                  style: BorderStyle.solid)),
+          focusedErrorBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: widget.focusColor ?? Theme.of(context).focusColor,
+                  width: 1,
+                  style: BorderStyle.solid)),
+          disabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: Theme.of(context).disabledColor,
+                  width: 1,
+                  style: BorderStyle.solid)),
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: widget.iconColor ??
+                      widget.prefixIconColor ??
+                      widget.suffixIconColor ??
+                      Theme.of(context).colorScheme.onSurface,
+                  width: 1,
+                  style: BorderStyle.solid)),
+          semanticCounterText: widget.semanticCounterText,
+          alignLabelWithHint: widget.alignLabelWithHint,
+          constraints: widget.constraints,
+        )
+      : widget.border ??
+          InputDecoration(
+            icon: widget.icon,
+            iconColor: widget.iconColor,
+            label: widget.label,
+            labelText: widget.labelText,
+            labelStyle: widget.labelStyle,
+            floatingLabelStyle: widget.floatingLabelStyle,
+            helperText: widget.helperText,
+            helperStyle: widget.helperStyle,
+            helperMaxLines: widget.helperMaxLines,
+            hintText: widget.hintText,
+            hintStyle: widget.hintStyle,
+            hintTextDirection: widget.hintTextDirection,
+            hintMaxLines: widget.hintMaxLines,
+            errorText: widget.errorText,
+            errorStyle: widget.errorStyle,
+            errorMaxLines: widget.errorMaxLines,
+            floatingLabelBehavior: widget.floatingLabelBehavior,
+            isCollapsed: widget.isCollapsed,
+            isDense: widget.isDense,
+            contentPadding: widget.contentPadding,
+            prefixIcon: widget.prefixIcon,
+            prefixIconConstraints: widget.prefixIconConstraints,
+            prefix: widget.prefix,
+            prefixIconColor: widget.prefixIconColor,
+            suffixIcon: widget.suffixIcon,
+            suffix: widget.suffix,
+            suffixText: widget.suffixText,
+            suffixStyle: widget.suffixStyle,
+            suffixIconColor: widget.suffixIconColor,
+            suffixIconConstraints: widget.suffixIconConstraints,
+            counter: widget.counter,
+            counterText: widget.counterText,
+            counterStyle: widget.counterStyle,
+            filled: widget.filled,
+            fillColor: widget.fillColor,
+            focusColor: widget.focusColor,
+            hoverColor: widget.hoverColor,
+            errorBorder: widget.errorBorder,
+            focusedBorder: widget.focusedBorder,
+            focusedErrorBorder: widget.focusedErrorBorder,
+            disabledBorder: widget.disabledBorder,
+            enabledBorder: widget.enabledBorder,
+            border: widget.border,
+            semanticCounterText: widget.semanticCounterText,
+            alignLabelWithHint: widget.alignLabelWithHint,
+            constraints: widget.constraints,
+          );
 }
