@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui show BoxHeightStyle, BoxWidthStyle;
 
 import 'package:flutter/services.dart';
 
@@ -284,7 +283,9 @@ class _NTextFieldState extends State<NTextField> {
                     keyboardType: widget.keyboardType,
                     textInputAction: widget.textInputAction,
                     textCapitalization: widget.textCapitalization,
-                    style: widget.style,
+                    style: widget.style ??
+                        TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface),
                     strutStyle: widget.strutStyle,
                     textAlign: widget.textAlign,
                     textAlignVertical: widget.textAlignVertical,
@@ -324,7 +325,11 @@ class _NTextFieldState extends State<NTextField> {
                       if (widget.helperText?.isNotEmpty == true)
                         Text(widget.helperText!,
                             style: widget.helperStyle ??
-                                const TextStyle(fontSize: 14),
+                                TextStyle(
+                                    fontSize: 14,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurface),
                             maxLines: widget.helperMaxLines ??
                                 Theme.of(context)
                                     .inputDecorationTheme
@@ -334,7 +339,10 @@ class _NTextFieldState extends State<NTextField> {
                         Text(
                           widget.counterText!,
                           style: widget.counterStyle ??
-                              const TextStyle(fontSize: 14),
+                              TextStyle(
+                                  fontSize: 14,
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface),
                         )
                     ],
                   ),
@@ -444,7 +452,10 @@ class _NTextFieldState extends State<NTextField> {
             const SizedBox(width: 3),
             if (widget.labelStyle != null)
               Text(widget.labelText!, style: widget.labelStyle!),
-            if (widget.labelStyle == null) Text(widget.labelText!),
+            if (widget.labelStyle == null)
+              Text(widget.labelText!,
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface)),
           ],
         ),
       );
@@ -480,7 +491,11 @@ class _NTextFieldState extends State<NTextField> {
             if (widget.labelText != null && widget.labelStyle != null)
               Text(widget.labelText!, style: widget.labelStyle!),
             if (widget.labelText != null && widget.labelStyle == null)
-              Text(widget.labelText!),
+              Text(
+                widget.labelText!,
+                style:
+                    TextStyle(color: Theme.of(context).colorScheme.onSurface),
+              ),
           ],
         ),
       );
@@ -516,10 +531,16 @@ class _NTextFieldState extends State<NTextField> {
             children: [
               if (widget.suffixText?.isNotEmpty == true &&
                   widget.suffixStyle != null)
-                Text(widget.suffixText!, style: widget.suffixStyle!),
+                Text(widget.suffixText!,
+                    style: widget.suffixStyle!.copyWith(
+                        color: Theme.of(context).colorScheme.onSurface)),
               if (widget.suffixText?.isNotEmpty == true &&
                   widget.suffixStyle == null)
-                Text(widget.suffixText!),
+                Text(
+                  widget.suffixText!,
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.onSurface),
+                ),
               const SizedBox(width: 3),
               if (widget.suffixIcon != null) widget.suffixIcon!
             ],
