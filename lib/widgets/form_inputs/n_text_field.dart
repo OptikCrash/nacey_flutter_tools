@@ -108,7 +108,7 @@ class NTextField extends StatefulWidget {
     this.constraints,
     this.useMaterial,
     this.useCupertino,
-    this.isOutlined = true,
+    this.isOutlined = false,
   })  : assert(!(label != null && labelText != null),
             'Declaring both label and labelText is not supported.'),
         assert(!(prefix != null && label != null),
