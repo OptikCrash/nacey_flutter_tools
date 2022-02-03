@@ -1,13 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
 
 class NTextField extends StatefulWidget {
-  NTextField({
+  const NTextField({
     Key? key,
     this.controller,
     this.initialValue,
@@ -136,7 +135,7 @@ class NTextField extends StatefulWidget {
         assert(!(useMaterial != null && useCupertino != null),
             'Declaring both Material design and Cupertino human interface is not supported.'),
         super(key: key);
-
+  //region properties
   final TextEditingController? controller;
   final String? initialValue;
   final FocusNode? focusNode;
@@ -236,6 +235,136 @@ class NTextField extends StatefulWidget {
   final bool? useCupertino;
   final bool isOutlined;
   //endregion
+
+  const NTextField.outlined({
+    Key? key,
+    this.controller,
+    this.initialValue,
+    this.focusNode,
+    this.keyboardType,
+    this.textCapitalization = TextCapitalization.none,
+    this.textInputAction,
+    this.style,
+    this.strutStyle,
+    this.textDirection = TextDirection.ltr,
+    this.textAlign = TextAlign.start,
+    this.textAlignVertical,
+    this.autofocus = false,
+    this.readOnly = false,
+    this.toolbarOptions,
+    this.showCursor,
+    this.obscuringCharacter = '•',
+    this.obscureText = false,
+    this.autocorrect = true,
+    this.smartDashesType,
+    this.smartQuotesType,
+    this.enableSuggestions = true,
+    this.maxLengthEnforcement,
+    this.maxLines = 1,
+    this.minLines,
+    this.expands = false,
+    this.maxLength,
+    this.onChanged,
+    this.onTap,
+    this.onEditingComplete,
+    this.onFieldSubmitted,
+    this.onSaved,
+    this.validator,
+    this.inputFormatters,
+    this.enabled = true,
+    this.cursorWidth = 2.0,
+    this.cursorHeight,
+    this.cursorRadius = const Radius.circular(2.0),
+    this.cursorColor,
+    this.keyboardAppearance,
+    this.scrollPadding = const EdgeInsets.all(20.0),
+    this.enableInteractiveSelection = true,
+    this.selectionControls,
+    this.buildCounter,
+    this.scrollPhysics,
+    this.autofillHints,
+    this.autovalidateMode = AutovalidateMode.disabled,
+    this.scrollController,
+    this.restorationId,
+    this.enableIMEPersonalizedLearning = true,
+    this.icon,
+    this.iconColor,
+    this.prefixIcon,
+    this.prefixIconConstraints,
+    this.prefix,
+    this.prefixIconColor,
+    this.label,
+    this.labelText,
+    this.labelStyle,
+    this.floatingLabelStyle,
+    this.hintText, //placeholder
+    this.hintStyle = const TextStyle(
+      fontWeight: FontWeight.w400,
+      color: CupertinoColors.placeholderText,
+    ), //
+    this.hintTextDirection,
+    this.hintMaxLines,
+    this.helperText,
+    this.helperStyle,
+    this.helperMaxLines,
+    this.errorText,
+    this.errorStyle,
+    this.errorMaxLines,
+    this.floatingLabelBehavior,
+    this.isDense,
+    this.contentPadding,
+    this.isCollapsed = false,
+    this.suffixIcon,
+    this.suffix,
+    this.suffixText,
+    this.suffixStyle,
+    this.suffixIconColor,
+    this.suffixIconConstraints,
+    this.counterText,
+    this.counter,
+    this.counterStyle,
+    this.filled,
+    this.fillColor,
+    this.focusColor,
+    this.hoverColor,
+    this.errorBorder,
+    this.focusedBorder,
+    this.focusedErrorBorder,
+    this.disabledBorder,
+    this.enabledBorder,
+    this.border,
+    this.semanticCounterText,
+    this.alignLabelWithHint,
+    this.constraints,
+    this.useMaterial,
+    this.useCupertino,
+    this.isOutlined = true,
+  })  : assert(!(label != null && labelText != null),
+            'Declaring both label and labelText is not supported.'),
+        assert(!(prefix != null && label != null),
+            'Declaring both prefix and label is not supported.'),
+        assert(!(suffix != null && suffixText != null),
+            'Declaring both suffix and suffixText is not supported.'),
+        assert(initialValue == null || controller == null),
+        assert(obscuringCharacter.length == 1),
+        assert(maxLines == null || maxLines > 0),
+        assert(minLines == null || minLines > 0),
+        assert(
+          (maxLines == null) || (minLines == null) || (maxLines >= minLines),
+          "minLines can't be greater than maxLines",
+        ),
+        assert(
+          !expands || (maxLines == null && minLines == null),
+          'minLines and maxLines must be null when expands is true.',
+        ),
+        assert(!obscureText || maxLines == 1,
+            'Obscured fields cannot be multiline.'),
+        assert(maxLength == null ||
+            maxLength == TextField.noMaxLength ||
+            maxLength > 0),
+        assert(!(useMaterial != null && useCupertino != null),
+            'Declaring both Material design and Cupertino human interface is not supported.'),
+        super(key: key);
 
   @override
   _NTextFieldState createState() => _NTextFieldState();
