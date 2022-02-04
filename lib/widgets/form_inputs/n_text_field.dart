@@ -345,6 +345,8 @@ class NTextField extends StatefulWidget {
             'Declaring both prefix and label is not supported.'),
         assert(!(suffix != null && suffixText != null),
             'Declaring both suffix and suffixText is not supported.'),
+        assert(!(suffix != null && suffixIcon != null),
+            'Declaring both suffix and suffixIcon is not supported.'),
         assert(initialValue == null || controller == null),
         assert(obscuringCharacter.length == 1),
         assert(maxLines == null || maxLines > 0),
