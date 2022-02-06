@@ -70,17 +70,17 @@ class NButton extends ButtonStyleButton {
         assert(clipBehavior != null),
         assert(autofocus != null),
         super(
-        key: key,
-        onPressed: onPressed,
-        onLongPress: onLongPress,
-        onHover: onHover,
-        onFocusChange: onFocusChange,
-        style: style,
-        focusNode: focusNode,
-        autofocus: autofocus,
-        clipBehavior: clipBehavior,
-        child: child,
-      );
+          key: key,
+          onPressed: onPressed,
+          onLongPress: onLongPress,
+          onHover: onHover,
+          onFocusChange: onFocusChange,
+          style: style,
+          focusNode: focusNode,
+          autofocus: autofocus,
+          clipBehavior: clipBehavior,
+          child: child,
+        );
 
   factory NButton.icon({
     Key? key,
@@ -312,16 +312,16 @@ class NButton extends ButtonStyleButton {
         padding ??= _kBackgroundButtonPadding;
       } else {
         padding ??=
-        (Platform.isIOS) ? _kBackgroundButtonPadding : _kButtonPadding;
+            (Platform.isIOS) ? _kBackgroundButtonPadding : _kButtonPadding;
       }
     }
     final MaterialStateProperty<double>? elevationValue =
-    (elevation == null) ? null : _NButtonDefaultElevation(elevation);
+        (elevation == null) ? null : _NButtonDefaultElevation(elevation);
     final MaterialStateProperty<MouseCursor>? mouseCursor =
-    (enabledMouseCursor == null && disabledMouseCursor == null)
-        ? null
-        : _NButtonDefaultMouseCursor(
-        enabledMouseCursor!, disabledMouseCursor!);
+        (enabledMouseCursor == null && disabledMouseCursor == null)
+            ? null
+            : _NButtonDefaultMouseCursor(
+                enabledMouseCursor!, disabledMouseCursor!);
 
     return ButtonStyle(
       textStyle: NButton.allOrNull<TextStyle>(textStyle),
@@ -348,20 +348,20 @@ class NButton extends ButtonStyleButton {
 
   @override
   ButtonStyle defaultStyleOf(
-      BuildContext context,
-      ) {
+    BuildContext context,
+  ) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
 
     final EdgeInsetsGeometry scaledPaddingMaterial =
-    ButtonStyleButton.scaledPadding(
+        ButtonStyleButton.scaledPadding(
       const EdgeInsets.symmetric(horizontal: 16),
       const EdgeInsets.symmetric(horizontal: 8),
       const EdgeInsets.symmetric(horizontal: 4),
       MediaQuery.maybeOf(context)?.textScaleFactor ?? 1,
     );
     final EdgeInsetsGeometry scaledPaddingCupertino =
-    ButtonStyleButton.scaledPadding(
+        ButtonStyleButton.scaledPadding(
       const EdgeInsets.symmetric(horizontal: 64),
       const EdgeInsets.symmetric(horizontal: 32),
       const EdgeInsets.symmetric(horizontal: 16),
@@ -370,25 +370,25 @@ class NButton extends ButtonStyleButton {
     final scaledPadding = (useMaterial)
         ? scaledPaddingMaterial
         : (useCupertino)
-        ? scaledPaddingCupertino
-        : Platform.isIOS
-        ? scaledPaddingCupertino
-        : scaledPaddingMaterial;
+            ? scaledPaddingCupertino
+            : Platform.isIOS
+                ? scaledPaddingCupertino
+                : scaledPaddingMaterial;
 
-    return styleFrom(
+    ButtonStyle buttonStyle = styleFrom(
       backgroundColor: null,
       foregroundColor: colorScheme.primary,
       overlayColor: colorScheme.primary.withOpacity(0.2),
       shadowColor: theme.shadowColor,
       elevation: 2,
       textStyle:
-      theme.textTheme.button?.copyWith(color: theme.colorScheme.primary),
+          theme.textTheme.button?.copyWith(color: theme.colorScheme.primary),
       padding: scaledPadding,
       minimumSize: const Size(64, 36),
       maximumSize: Size.infinite,
       side: BorderSide(
         color: ThemeData.estimateBrightnessForColor(colorScheme.surface) ==
-            Brightness.light
+                Brightness.light
             ? Colors.black12
             : Colors.white12,
         width: 1.0,
@@ -407,6 +407,23 @@ class NButton extends ButtonStyleButton {
       primary: colorScheme.primary,
       onSurface: colorScheme.onSurface,
     );
+    if (isFlat) {
+      return buttonStyle.copyWith(
+          backgroundColor: null,
+          side: NButton.allOrNull(const BorderSide(color: Colors.transparent)));
+    } else if (isTinted) {
+      return buttonStyle.copyWith(
+          shadowColor: NButton.allOrNull(Colors.transparent),
+          backgroundColor:
+              NButton.allOrNull(colorScheme.primary.withOpacity(0.1)));
+    } else if (isFilled) {
+      return buttonStyle.copyWith(
+          textStyle: NButton.allOrNull(TextStyle(color: colorScheme.onPrimary)),
+          foregroundColor: NButton.allOrNull(colorScheme.onPrimary),
+          backgroundColor: NButton.allOrNull(colorScheme.primary));
+    } else {
+      return buttonStyle;
+    }
   }
 
   @override
@@ -420,11 +437,11 @@ class NButton extends ButtonStyleButton {
       value == null ? null : MaterialStateProperty.all<T>(value);
 
   static EdgeInsetsGeometry scaledPadding(
-      EdgeInsetsGeometry geometry1x,
-      EdgeInsetsGeometry geometry2x,
-      EdgeInsetsGeometry geometry3x,
-      double textScaleFactor,
-      ) {
+    EdgeInsetsGeometry geometry1x,
+    EdgeInsetsGeometry geometry2x,
+    EdgeInsetsGeometry geometry3x,
+    double textScaleFactor,
+  ) {
     assert(geometry1x != null);
     assert(geometry2x != null);
     assert(geometry3x != null);
@@ -517,7 +534,8 @@ class NButtonWithIcon extends NButton {
     double highlightElevation = 8.0,
     double disabledElevation = 0.0,
     VisualDensity visualDensity = VisualDensity.standard,
-    BoxConstraints constraints = const BoxConstraints(minWidth: 88.0, minHeight: 36.0),
+    BoxConstraints constraints =
+        const BoxConstraints(minWidth: 88.0, minHeight: 36.0),
     ShapeBorder shape = const RoundedRectangleBorder(
       side: BorderSide(color: CupertinoColors.inactiveGray),
       borderRadius: BorderRadius.all(Radius.circular(8.0)),
@@ -533,47 +551,47 @@ class NButtonWithIcon extends NButton {
   })  : assert(icon != null),
         assert(label != null),
         super(
-        key: key,
-        child: _NButtonWithIconChild(icon: icon, label: Text(label)),
-        onPressed: onPressed,
-        onLongPress: onLongPress,
-        onHover: onHover,
-        onFocusChange: onFocusChange,
-        style: style,
-        focusNode: focusNode,
-        padding: padding,
-        onHighlightChanged: onHighlightChanged,
-        mouseCursor: mouseCursor,
-        textStyle: textStyle,
-        fillColor: fillColor,
-        focusColor: focusColor,
-        hoverColor: hoverColor,
-        highlightColor: highlightColor,
-        splashColor: splashColor,
-        disabledColor: disabledColor,
-        autofocus: autofocus,
-        clipBehavior: clipBehavior,
-        minSize: minSize,
-        pressedOpacity: pressedOpacity,
-        borderRadius: borderRadius,
-        alignment: alignment,
-        elevation: elevation,
-        hoverElevation: hoverElevation,
-        focusElevation: focusElevation,
-        highlightElevation: highlightElevation,
-        disabledElevation: disabledElevation,
-        visualDensity: visualDensity,
-        constraints: constraints,
-        shape: shape,
-        animationDuration: animationDuration,
-        materialTapTargetSize: materialTapTargetSize,
-        enableFeedback: enableFeedback,
-        useMaterial: useMaterial,
-        useCupertino: useCupertino,
-        isFlat: isFlat,
-        isFilled: isFilled,
-        isTinted: isTinted,
-      );
+          key: key,
+          child: _NButtonWithIconChild(icon: icon, label: Text(label)),
+          onPressed: onPressed,
+          onLongPress: onLongPress,
+          onHover: onHover,
+          onFocusChange: onFocusChange,
+          style: style,
+          focusNode: focusNode,
+          padding: padding,
+          onHighlightChanged: onHighlightChanged,
+          mouseCursor: mouseCursor,
+          textStyle: textStyle,
+          fillColor: fillColor,
+          focusColor: focusColor,
+          hoverColor: hoverColor,
+          highlightColor: highlightColor,
+          splashColor: splashColor,
+          disabledColor: disabledColor,
+          autofocus: autofocus,
+          clipBehavior: clipBehavior,
+          minSize: minSize,
+          pressedOpacity: pressedOpacity,
+          borderRadius: borderRadius,
+          alignment: alignment,
+          elevation: elevation,
+          hoverElevation: hoverElevation,
+          focusElevation: focusElevation,
+          highlightElevation: highlightElevation,
+          disabledElevation: disabledElevation,
+          visualDensity: visualDensity,
+          constraints: constraints,
+          shape: shape,
+          animationDuration: animationDuration,
+          materialTapTargetSize: materialTapTargetSize,
+          enableFeedback: enableFeedback,
+          useMaterial: useMaterial,
+          useCupertino: useCupertino,
+          isFlat: isFlat,
+          isFilled: isFilled,
+          isTinted: isTinted,
+        );
 }
 
 class NButtonFlat extends NButton {
@@ -610,7 +628,7 @@ class NButtonFlat extends NButton {
     double disabledElevation = 0.0,
     VisualDensity visualDensity = VisualDensity.standard,
     BoxConstraints constraints =
-    const BoxConstraints(minWidth: 88.0, minHeight: 36.0),
+        const BoxConstraints(minWidth: 88.0, minHeight: 36.0),
     ShapeBorder shape = const RoundedRectangleBorder(),
     Duration animationDuration = kThemeChangeDuration,
     MaterialTapTargetSize materialTapTargetSize = MaterialTapTargetSize.padded,
@@ -618,54 +636,45 @@ class NButtonFlat extends NButton {
     bool useMaterial = false,
     bool useCupertino = false,
   }) : super(
-    key: key,
-    child: child,
-    onPressed: onPressed,
-    onLongPress: onLongPress,
-    onHover: onHover,
-    onFocusChange: onFocusChange,
-    style: style,
-    focusNode: focusNode,
-    padding: padding,
-    onHighlightChanged: onHighlightChanged,
-    mouseCursor: mouseCursor,
-    textStyle: textStyle,
-    fillColor: fillColor,
-    focusColor: focusColor,
-    hoverColor: hoverColor,
-    highlightColor: highlightColor,
-    splashColor: splashColor,
-    disabledColor: disabledColor,
-    autofocus: autofocus,
-    clipBehavior: clipBehavior,
-    minSize: minSize,
-    pressedOpacity: pressedOpacity,
-    borderRadius: borderRadius,
-    alignment: alignment,
-    elevation: elevation,
-    hoverElevation: hoverElevation,
-    focusElevation: focusElevation,
-    highlightElevation: highlightElevation,
-    disabledElevation: disabledElevation,
-    visualDensity: visualDensity,
-    constraints: constraints,
-    shape: shape,
-    animationDuration: animationDuration,
-    materialTapTargetSize: materialTapTargetSize,
-    enableFeedback: enableFeedback,
-    useMaterial: useMaterial,
-    useCupertino: useCupertino,
-    isFlat: true,
-  );
-  //endregion
-
-  @override
-  ButtonStyle defaultStyleOf(
-      BuildContext context,
-      ) {
-    return super.defaultStyleOf(context).copyWith(backgroundColor: null,
-        side: NButton.allOrNull(const BorderSide(color: Colors.transparent)));
-  }
+          key: key,
+          child: child,
+          onPressed: onPressed,
+          onLongPress: onLongPress,
+          onHover: onHover,
+          onFocusChange: onFocusChange,
+          style: style,
+          focusNode: focusNode,
+          padding: padding,
+          onHighlightChanged: onHighlightChanged,
+          mouseCursor: mouseCursor,
+          textStyle: textStyle,
+          fillColor: fillColor,
+          focusColor: focusColor,
+          hoverColor: hoverColor,
+          highlightColor: highlightColor,
+          splashColor: splashColor,
+          disabledColor: disabledColor,
+          autofocus: autofocus,
+          clipBehavior: clipBehavior,
+          minSize: minSize,
+          pressedOpacity: pressedOpacity,
+          borderRadius: borderRadius,
+          alignment: alignment,
+          elevation: elevation,
+          hoverElevation: hoverElevation,
+          focusElevation: focusElevation,
+          highlightElevation: highlightElevation,
+          disabledElevation: disabledElevation,
+          visualDensity: visualDensity,
+          constraints: constraints,
+          shape: shape,
+          animationDuration: animationDuration,
+          materialTapTargetSize: materialTapTargetSize,
+          enableFeedback: enableFeedback,
+          useMaterial: useMaterial,
+          useCupertino: useCupertino,
+          isFlat: true,
+        );
 }
 
 class NButtonFlatWithIcon extends NButtonFlat {
@@ -702,7 +711,7 @@ class NButtonFlatWithIcon extends NButtonFlat {
     double disabledElevation = 0.0,
     VisualDensity visualDensity = VisualDensity.standard,
     BoxConstraints constraints =
-    const BoxConstraints(minWidth: 88.0, minHeight: 36.0),
+        const BoxConstraints(minWidth: 88.0, minHeight: 36.0),
     ShapeBorder shape = const RoundedRectangleBorder(),
     Duration animationDuration = kThemeChangeDuration,
     MaterialTapTargetSize materialTapTargetSize = MaterialTapTargetSize.padded,
@@ -710,44 +719,44 @@ class NButtonFlatWithIcon extends NButtonFlat {
     bool useMaterial = false,
     bool useCupertino = false,
   }) : super(
-    key: key,
-    child: _NButtonWithIconChild(icon: icon, label: Text(label)),
-    onPressed: onPressed,
-    onLongPress: onLongPress,
-    onHover: onHover,
-    onFocusChange: onFocusChange,
-    style: style,
-    focusNode: focusNode,
-    padding: padding,
-    onHighlightChanged: onHighlightChanged,
-    mouseCursor: mouseCursor,
-    textStyle: textStyle,
-    fillColor: fillColor,
-    focusColor: focusColor,
-    hoverColor: hoverColor,
-    highlightColor: highlightColor,
-    splashColor: splashColor,
-    disabledColor: disabledColor,
-    autofocus: autofocus,
-    clipBehavior: clipBehavior,
-    minSize: minSize,
-    pressedOpacity: pressedOpacity,
-    borderRadius: borderRadius,
-    alignment: alignment,
-    elevation: elevation,
-    hoverElevation: hoverElevation,
-    focusElevation: focusElevation,
-    highlightElevation: highlightElevation,
-    disabledElevation: disabledElevation,
-    visualDensity: visualDensity,
-    constraints: constraints,
-    shape: shape,
-    animationDuration: animationDuration,
-    materialTapTargetSize: materialTapTargetSize,
-    enableFeedback: enableFeedback,
-    useMaterial: useMaterial,
-    useCupertino: useCupertino,
-  );
+          key: key,
+          child: _NButtonWithIconChild(icon: icon, label: Text(label)),
+          onPressed: onPressed,
+          onLongPress: onLongPress,
+          onHover: onHover,
+          onFocusChange: onFocusChange,
+          style: style,
+          focusNode: focusNode,
+          padding: padding,
+          onHighlightChanged: onHighlightChanged,
+          mouseCursor: mouseCursor,
+          textStyle: textStyle,
+          fillColor: fillColor,
+          focusColor: focusColor,
+          hoverColor: hoverColor,
+          highlightColor: highlightColor,
+          splashColor: splashColor,
+          disabledColor: disabledColor,
+          autofocus: autofocus,
+          clipBehavior: clipBehavior,
+          minSize: minSize,
+          pressedOpacity: pressedOpacity,
+          borderRadius: borderRadius,
+          alignment: alignment,
+          elevation: elevation,
+          hoverElevation: hoverElevation,
+          focusElevation: focusElevation,
+          highlightElevation: highlightElevation,
+          disabledElevation: disabledElevation,
+          visualDensity: visualDensity,
+          constraints: constraints,
+          shape: shape,
+          animationDuration: animationDuration,
+          materialTapTargetSize: materialTapTargetSize,
+          enableFeedback: enableFeedback,
+          useMaterial: useMaterial,
+          useCupertino: useCupertino,
+        );
 }
 
 class NButtonTinted extends NButton {
@@ -784,7 +793,7 @@ class NButtonTinted extends NButton {
     double disabledElevation = 0.0,
     VisualDensity visualDensity = VisualDensity.standard,
     BoxConstraints constraints =
-    const BoxConstraints(minWidth: 88.0, minHeight: 36.0),
+        const BoxConstraints(minWidth: 88.0, minHeight: 36.0),
     ShapeBorder shape = const RoundedRectangleBorder(),
     Duration animationDuration = kThemeChangeDuration,
     MaterialTapTargetSize materialTapTargetSize = MaterialTapTargetSize.padded,
@@ -792,56 +801,46 @@ class NButtonTinted extends NButton {
     bool useMaterial = false,
     bool useCupertino = false,
   }) : super(
-    key: key,
-    child: child,
-    onPressed: onPressed,
-    onLongPress: onLongPress,
-    onHover: onHover,
-    onFocusChange: onFocusChange,
-    style: style,
-    focusNode: focusNode,
-    padding: padding,
-    onHighlightChanged: onHighlightChanged,
-    mouseCursor: mouseCursor,
-    textStyle: textStyle,
-    fillColor: fillColor,
-    focusColor: focusColor,
-    hoverColor: hoverColor,
-    highlightColor: highlightColor,
-    splashColor: splashColor,
-    disabledColor: disabledColor,
-    autofocus: autofocus,
-    clipBehavior: clipBehavior,
-    minSize: minSize,
-    pressedOpacity: pressedOpacity,
-    borderRadius: borderRadius,
-    alignment: alignment,
-    elevation: elevation,
-    hoverElevation: hoverElevation,
-    focusElevation: focusElevation,
-    highlightElevation: highlightElevation,
-    disabledElevation: disabledElevation,
-    visualDensity: visualDensity,
-    constraints: constraints,
-    shape: shape,
-    animationDuration: animationDuration,
-    materialTapTargetSize: materialTapTargetSize,
-    enableFeedback: enableFeedback,
-    useMaterial: useMaterial,
-    useCupertino: useCupertino,
-    isTinted: true,
-  );
-  //endregion
-
-  @override
-  ButtonStyle defaultStyleOf(
-      BuildContext context,
-      ) {
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
-
-    return super.defaultStyleOf(context).copyWith(shadowColor: NButton.allOrNull(Colors.transparent), backgroundColor: NButton.allOrNull(colorScheme.primary.withOpacity(0.1)));
-  }
+          key: key,
+          child: child,
+          onPressed: onPressed,
+          onLongPress: onLongPress,
+          onHover: onHover,
+          onFocusChange: onFocusChange,
+          style: style,
+          focusNode: focusNode,
+          padding: padding,
+          onHighlightChanged: onHighlightChanged,
+          mouseCursor: mouseCursor,
+          textStyle: textStyle,
+          fillColor: fillColor,
+          focusColor: focusColor,
+          hoverColor: hoverColor,
+          highlightColor: highlightColor,
+          splashColor: splashColor,
+          disabledColor: disabledColor,
+          autofocus: autofocus,
+          clipBehavior: clipBehavior,
+          minSize: minSize,
+          pressedOpacity: pressedOpacity,
+          borderRadius: borderRadius,
+          alignment: alignment,
+          elevation: elevation,
+          hoverElevation: hoverElevation,
+          focusElevation: focusElevation,
+          highlightElevation: highlightElevation,
+          disabledElevation: disabledElevation,
+          visualDensity: visualDensity,
+          constraints: constraints,
+          shape: shape,
+          animationDuration: animationDuration,
+          materialTapTargetSize: materialTapTargetSize,
+          enableFeedback: enableFeedback,
+          useMaterial: useMaterial,
+          useCupertino: useCupertino,
+          isTinted: true,
+        );
+//endregion
 }
 
 class NButtonTintedWithIcon extends NButtonTinted {
@@ -878,7 +877,7 @@ class NButtonTintedWithIcon extends NButtonTinted {
     double disabledElevation = 0.0,
     VisualDensity visualDensity = VisualDensity.standard,
     BoxConstraints constraints =
-    const BoxConstraints(minWidth: 88.0, minHeight: 36.0),
+        const BoxConstraints(minWidth: 88.0, minHeight: 36.0),
     ShapeBorder shape = const RoundedRectangleBorder(),
     Duration animationDuration = kThemeChangeDuration,
     MaterialTapTargetSize materialTapTargetSize = MaterialTapTargetSize.padded,
@@ -886,44 +885,44 @@ class NButtonTintedWithIcon extends NButtonTinted {
     bool useMaterial = false,
     bool useCupertino = false,
   }) : super(
-    key: key,
-    child: _NButtonWithIconChild(icon: icon, label: Text(label)),
-    onPressed: onPressed,
-    onLongPress: onLongPress,
-    onHover: onHover,
-    onFocusChange: onFocusChange,
-    style: style,
-    focusNode: focusNode,
-    padding: padding,
-    onHighlightChanged: onHighlightChanged,
-    mouseCursor: mouseCursor,
-    textStyle: textStyle,
-    fillColor: fillColor,
-    focusColor: focusColor,
-    hoverColor: hoverColor,
-    highlightColor: highlightColor,
-    splashColor: splashColor,
-    disabledColor: disabledColor,
-    autofocus: autofocus,
-    clipBehavior: clipBehavior,
-    minSize: minSize,
-    pressedOpacity: pressedOpacity,
-    borderRadius: borderRadius,
-    alignment: alignment,
-    elevation: elevation,
-    hoverElevation: hoverElevation,
-    focusElevation: focusElevation,
-    highlightElevation: highlightElevation,
-    disabledElevation: disabledElevation,
-    visualDensity: visualDensity,
-    constraints: constraints,
-    shape: shape,
-    animationDuration: animationDuration,
-    materialTapTargetSize: materialTapTargetSize,
-    enableFeedback: enableFeedback,
-    useMaterial: useMaterial,
-    useCupertino: useCupertino,
-  );
+          key: key,
+          child: _NButtonWithIconChild(icon: icon, label: Text(label)),
+          onPressed: onPressed,
+          onLongPress: onLongPress,
+          onHover: onHover,
+          onFocusChange: onFocusChange,
+          style: style,
+          focusNode: focusNode,
+          padding: padding,
+          onHighlightChanged: onHighlightChanged,
+          mouseCursor: mouseCursor,
+          textStyle: textStyle,
+          fillColor: fillColor,
+          focusColor: focusColor,
+          hoverColor: hoverColor,
+          highlightColor: highlightColor,
+          splashColor: splashColor,
+          disabledColor: disabledColor,
+          autofocus: autofocus,
+          clipBehavior: clipBehavior,
+          minSize: minSize,
+          pressedOpacity: pressedOpacity,
+          borderRadius: borderRadius,
+          alignment: alignment,
+          elevation: elevation,
+          hoverElevation: hoverElevation,
+          focusElevation: focusElevation,
+          highlightElevation: highlightElevation,
+          disabledElevation: disabledElevation,
+          visualDensity: visualDensity,
+          constraints: constraints,
+          shape: shape,
+          animationDuration: animationDuration,
+          materialTapTargetSize: materialTapTargetSize,
+          enableFeedback: enableFeedback,
+          useMaterial: useMaterial,
+          useCupertino: useCupertino,
+        );
 }
 
 class NButtonFilled extends NButton {
@@ -960,7 +959,7 @@ class NButtonFilled extends NButton {
     double disabledElevation = 0.0,
     VisualDensity visualDensity = VisualDensity.standard,
     BoxConstraints constraints =
-    const BoxConstraints(minWidth: 88.0, minHeight: 36.0),
+        const BoxConstraints(minWidth: 88.0, minHeight: 36.0),
     ShapeBorder shape = const RoundedRectangleBorder(),
     Duration animationDuration = kThemeChangeDuration,
     MaterialTapTargetSize materialTapTargetSize = MaterialTapTargetSize.padded,
@@ -968,60 +967,46 @@ class NButtonFilled extends NButton {
     bool useMaterial = false,
     bool useCupertino = false,
   }) : super(
-    key: key,
-    child: child,
-    onPressed: onPressed,
-    onLongPress: onLongPress,
-    onHover: onHover,
-    onFocusChange: onFocusChange,
-    style: style,
-    focusNode: focusNode,
-    padding: padding,
-    onHighlightChanged: onHighlightChanged,
-    mouseCursor: mouseCursor,
-    textStyle: textStyle,
-    fillColor: fillColor,
-    focusColor: focusColor,
-    hoverColor: hoverColor,
-    highlightColor: highlightColor,
-    splashColor: splashColor,
-    disabledColor: disabledColor,
-    autofocus: autofocus,
-    clipBehavior: clipBehavior,
-    minSize: minSize,
-    pressedOpacity: pressedOpacity,
-    borderRadius: borderRadius,
-    alignment: alignment,
-    elevation: elevation,
-    hoverElevation: hoverElevation,
-    focusElevation: focusElevation,
-    highlightElevation: highlightElevation,
-    disabledElevation: disabledElevation,
-    visualDensity: visualDensity,
-    constraints: constraints,
-    shape: shape,
-    animationDuration: animationDuration,
-    materialTapTargetSize: materialTapTargetSize,
-    enableFeedback: enableFeedback,
-    useMaterial: useMaterial,
-    useCupertino: useCupertino,
-    isFilled: true,
-  );
-  //endregion
-
-  @override
-  ButtonStyle defaultStyleOf(
-      BuildContext context,
-      ) {
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
-
-    return super.defaultStyleOf(context)
-        .copyWith(
-        textStyle: NButton.allOrNull(TextStyle(color: colorScheme.onPrimary)),
-        foregroundColor: NButton.allOrNull(colorScheme.onPrimary),
-        backgroundColor: NButton.allOrNull(colorScheme.primary));
-  }
+          key: key,
+          child: child,
+          onPressed: onPressed,
+          onLongPress: onLongPress,
+          onHover: onHover,
+          onFocusChange: onFocusChange,
+          style: style,
+          focusNode: focusNode,
+          padding: padding,
+          onHighlightChanged: onHighlightChanged,
+          mouseCursor: mouseCursor,
+          textStyle: textStyle,
+          fillColor: fillColor,
+          focusColor: focusColor,
+          hoverColor: hoverColor,
+          highlightColor: highlightColor,
+          splashColor: splashColor,
+          disabledColor: disabledColor,
+          autofocus: autofocus,
+          clipBehavior: clipBehavior,
+          minSize: minSize,
+          pressedOpacity: pressedOpacity,
+          borderRadius: borderRadius,
+          alignment: alignment,
+          elevation: elevation,
+          hoverElevation: hoverElevation,
+          focusElevation: focusElevation,
+          highlightElevation: highlightElevation,
+          disabledElevation: disabledElevation,
+          visualDensity: visualDensity,
+          constraints: constraints,
+          shape: shape,
+          animationDuration: animationDuration,
+          materialTapTargetSize: materialTapTargetSize,
+          enableFeedback: enableFeedback,
+          useMaterial: useMaterial,
+          useCupertino: useCupertino,
+          isFilled: true,
+        );
+//endregion
 }
 
 class NButtonFilledWithIcon extends NButtonFilled {
@@ -1058,7 +1043,7 @@ class NButtonFilledWithIcon extends NButtonFilled {
     double disabledElevation = 0.0,
     VisualDensity visualDensity = VisualDensity.standard,
     BoxConstraints constraints =
-    const BoxConstraints(minWidth: 88.0, minHeight: 36.0),
+        const BoxConstraints(minWidth: 88.0, minHeight: 36.0),
     ShapeBorder shape = const RoundedRectangleBorder(),
     Duration animationDuration = kThemeChangeDuration,
     MaterialTapTargetSize materialTapTargetSize = MaterialTapTargetSize.padded,
@@ -1066,44 +1051,44 @@ class NButtonFilledWithIcon extends NButtonFilled {
     bool useMaterial = false,
     bool useCupertino = false,
   }) : super(
-    key: key,
-    child: _NButtonWithIconChild(icon: icon, label: Text(label)),
-    onPressed: onPressed,
-    onLongPress: onLongPress,
-    onHover: onHover,
-    onFocusChange: onFocusChange,
-    style: style,
-    focusNode: focusNode,
-    padding: padding,
-    onHighlightChanged: onHighlightChanged,
-    mouseCursor: mouseCursor,
-    textStyle: textStyle,
-    fillColor: fillColor,
-    focusColor: focusColor,
-    hoverColor: hoverColor,
-    highlightColor: highlightColor,
-    splashColor: splashColor,
-    disabledColor: disabledColor,
-    autofocus: autofocus,
-    clipBehavior: clipBehavior,
-    minSize: minSize,
-    pressedOpacity: pressedOpacity,
-    borderRadius: borderRadius,
-    alignment: alignment,
-    elevation: elevation,
-    hoverElevation: hoverElevation,
-    focusElevation: focusElevation,
-    highlightElevation: highlightElevation,
-    disabledElevation: disabledElevation,
-    visualDensity: visualDensity,
-    constraints: constraints,
-    shape: shape,
-    animationDuration: animationDuration,
-    materialTapTargetSize: materialTapTargetSize,
-    enableFeedback: enableFeedback,
-    useMaterial: useMaterial,
-    useCupertino: useCupertino,
-  );
+          key: key,
+          child: _NButtonWithIconChild(icon: icon, label: Text(label)),
+          onPressed: onPressed,
+          onLongPress: onLongPress,
+          onHover: onHover,
+          onFocusChange: onFocusChange,
+          style: style,
+          focusNode: focusNode,
+          padding: padding,
+          onHighlightChanged: onHighlightChanged,
+          mouseCursor: mouseCursor,
+          textStyle: textStyle,
+          fillColor: fillColor,
+          focusColor: focusColor,
+          hoverColor: hoverColor,
+          highlightColor: highlightColor,
+          splashColor: splashColor,
+          disabledColor: disabledColor,
+          autofocus: autofocus,
+          clipBehavior: clipBehavior,
+          minSize: minSize,
+          pressedOpacity: pressedOpacity,
+          borderRadius: borderRadius,
+          alignment: alignment,
+          elevation: elevation,
+          hoverElevation: hoverElevation,
+          focusElevation: focusElevation,
+          highlightElevation: highlightElevation,
+          disabledElevation: disabledElevation,
+          visualDensity: visualDensity,
+          constraints: constraints,
+          shape: shape,
+          animationDuration: animationDuration,
+          materialTapTargetSize: materialTapTargetSize,
+          enableFeedback: enableFeedback,
+          useMaterial: useMaterial,
+          useCupertino: useCupertino,
+        );
 }
 
 class _NButtonWithIconChild extends StatelessWidget {
@@ -1120,13 +1105,14 @@ class _NButtonWithIconChild extends StatelessWidget {
   Widget build(BuildContext context) {
     final double scale = MediaQuery.maybeOf(context)?.textScaleFactor ?? 1;
     final double gap =
-    scale <= 1 ? 8 : lerpDouble(8, 4, math.min(scale - 1, 1))!;
+        scale <= 1 ? 8 : lerpDouble(8, 4, math.min(scale - 1, 1))!;
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[icon, SizedBox(width: gap), Flexible(child: label)],
     );
   }
 }
+
 /*
               __________________________________________
     This Set  ||  flat   |NButton|tinted   |  filled    ||
