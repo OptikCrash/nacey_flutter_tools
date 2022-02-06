@@ -13,3 +13,4 @@ export 'form_validators.dart'
 export 'extensions/extensions.dart';
 export 'theme/themes.dart' show ThemeDataExtension, CustomThemeFields;
 export 'widgets/form_inputs/form_inputs.dart';
+export 'widgets/widgets.dart';
