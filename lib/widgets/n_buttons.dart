@@ -375,7 +375,7 @@ class NButton extends ButtonStyleButton {
                 ? scaledPaddingCupertino
                 : scaledPaddingMaterial;
 
-    return styleFrom(
+    ButtonStyle buttonStyle = styleFrom(
       backgroundColor: null,
       foregroundColor: colorScheme.primary,
       overlayColor: colorScheme.primary.withOpacity(0.2),
@@ -407,6 +407,23 @@ class NButton extends ButtonStyleButton {
       primary: colorScheme.primary,
       onSurface: colorScheme.onSurface,
     );
+    if (isFlat) {
+      return buttonStyle.copyWith(
+          backgroundColor: null,
+          side: NButton.allOrNull(const BorderSide(color: Colors.transparent)));
+    } else if (isTinted) {
+      return buttonStyle.copyWith(
+          shadowColor: NButton.allOrNull(Colors.transparent),
+          backgroundColor:
+              NButton.allOrNull(colorScheme.primary.withOpacity(0.1)));
+    } else if (isFilled) {
+      return buttonStyle.copyWith(
+          textStyle: NButton.allOrNull(TextStyle(color: colorScheme.onPrimary)),
+          foregroundColor: NButton.allOrNull(colorScheme.onPrimary),
+          backgroundColor: NButton.allOrNull(colorScheme.primary));
+    } else {
+      return buttonStyle;
+    }
   }
 
   @override
@@ -1131,6 +1148,7 @@ class _NButtonWithIconChild extends StatelessWidget {
     );
   }
 }
+
 /*
               __________________________________________
     This Set  ||  flat   |NButton|tinted   |  filled    ||
