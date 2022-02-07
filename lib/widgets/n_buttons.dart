@@ -45,7 +45,7 @@ class NButton extends ButtonStyleButton {
     this.highlightElevation = 8.0,
     this.disabledElevation = 0.0,
     this.visualDensity = VisualDensity.standard,
-    this.constraints = const BoxConstraints(minWidth: 88.0, minHeight: 36.0),
+    this.constraints = const BoxConstraints(minWidth: 86.0, minHeight: 36.0),
     this.shape = const RoundedRectangleBorder(
       side: BorderSide(color: CupertinoColors.inactiveGray),
       borderRadius: BorderRadius.all(Radius.circular(8.0)),
@@ -675,6 +675,16 @@ class NButtonFlat extends NButton {
           useCupertino: useCupertino,
           isFlat: true,
         );
+  //endregion
+
+  @override
+  ButtonStyle defaultStyleOf(
+    BuildContext context,
+  ) {
+    return super.defaultStyleOf(context).copyWith(
+        backgroundColor: null,
+        side: NButton.allOrNull(const BorderSide(color: Colors.transparent)));
+  }
 }
 
 class NButtonFlatWithIcon extends NButtonFlat {
@@ -840,7 +850,20 @@ class NButtonTinted extends NButton {
           useCupertino: useCupertino,
           isTinted: true,
         );
-//endregion
+  //endregion
+
+  @override
+  ButtonStyle defaultStyleOf(
+    BuildContext context,
+  ) {
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+
+    return super.defaultStyleOf(context).copyWith(
+        shadowColor: NButton.allOrNull(Colors.transparent),
+        backgroundColor:
+            NButton.allOrNull(colorScheme.primary.withOpacity(0.1)));
+  }
 }
 
 class NButtonTintedWithIcon extends NButtonTinted {
@@ -1006,7 +1029,20 @@ class NButtonFilled extends NButton {
           useCupertino: useCupertino,
           isFilled: true,
         );
-//endregion
+  //endregion
+
+  @override
+  ButtonStyle defaultStyleOf(
+    BuildContext context,
+  ) {
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+
+    return super.defaultStyleOf(context).copyWith(
+        textStyle: NButton.allOrNull(TextStyle(color: colorScheme.onPrimary)),
+        foregroundColor: NButton.allOrNull(colorScheme.onPrimary),
+        backgroundColor: NButton.allOrNull(colorScheme.primary));
+  }
 }
 
 class NButtonFilledWithIcon extends NButtonFilled {
