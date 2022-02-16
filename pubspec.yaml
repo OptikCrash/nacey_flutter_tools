@@ -18,12 +18,24 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^1.0.0
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter.
 flutter:
-
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: fonts/roboto/roboto_regular.ttf
+    - family: Segoe
+      fonts:
+        - asset: fonts/segoe/segoe.ttf
+    - family: SanFrancisco-Pro
+      fonts:
+        - asset: fonts/sf_pro/sf_pro.ttf
+        - asset: fonts/sf_pro/sf_pro_italic.ttf
+          style: italic
+    - family: SanFrancisco-Compact
+      fonts:
+        - asset: fonts/sf_compact/sf_compact.ttf
+        - asset: fonts/sf_compact/sf_compact_italic.ttf
+          style: italic
   # To add assets to your package, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
