@@ -4,7 +4,6 @@ import 'dart:ui' show lerpDouble;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:nacey_flutter_tools/theme/text_style.dart';
 
 // Measured against iOS 12 in Xcode.
 const EdgeInsets _kButtonPadding = EdgeInsets.all(8.0);
@@ -317,23 +316,6 @@ class NButton extends ButtonStyleButton {
             : _kButtonPadding;
       }
     }
-    if (textStyle == null) {
-      if (useMaterial) {
-        textStyle ??= const TextStyle(fontFamily: 'Roboto');
-      } else if (useCupertino) {
-        textStyle ??= const TextStyle(fontFamily: 'SanFrancisco-Compact');
-      } else {
-        textStyle ??= (Platform.isIOS)
-            ? const TextStyle(fontFamily: 'SanFrancisco-Compact')
-            : (Platform.isMacOS)
-                ? const TextStyle(fontFamily: 'SanFrancisco-Pro')
-                : (Platform.isAndroid)
-                    ? const TextStyle(fontFamily: 'Roboto')
-                    : (Platform.isWindows)
-                        ? const TextStyle(fontFamily: 'Segoe')
-                        : const TextStyle(fontFamily: 'Arial');
-      }
-    }
     final MaterialStateProperty<double>? elevationValue =
         (elevation == null) ? null : _NButtonDefaultElevation(elevation);
     final MaterialStateProperty<MouseCursor>? mouseCursor =
@@ -394,14 +376,28 @@ class NButton extends ButtonStyleButton {
                 ? scaledPaddingCupertino
                 : scaledPaddingMaterial;
 
+    final fontFamily = (useMaterial)
+        ? 'Roboto'
+        : (useCupertino)
+            ? 'SanFrancisco-Compact'
+            : (Platform.isIOS)
+                ? 'SanFrancisco-Compact'
+                : (Platform.isMacOS)
+                    ? 'SanFrancisco-Pro'
+                    : (Platform.isAndroid)
+                        ? 'Roboto'
+                        : (Platform.isWindows)
+                            ? 'Segoe'
+                            : 'Arial';
+
     ButtonStyle buttonStyle = styleFrom(
       backgroundColor: null,
       foregroundColor: colorScheme.primary,
       overlayColor: colorScheme.primary.withOpacity(0.2),
       shadowColor: theme.shadowColor,
       elevation: 2,
-      textStyle:
-          theme.textTheme.button?.copyWith(color: theme.colorScheme.primary),
+      textStyle: theme.textTheme.button
+          ?.copyWith(color: theme.colorScheme.primary, fontFamily: fontFamily),
       padding: scaledPadding,
       minimumSize: const Size(64, 36),
       maximumSize: Size.infinite,
