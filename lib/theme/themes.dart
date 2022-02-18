@@ -41,7 +41,6 @@ class CustomThemeFields {
   final Color iosSystemGray4;
   final Color iosSystemGray5;
   final Color iosSystemGray6;
-  final Color twitterBlue;
 
   CustomThemeFields({
     Color? iosSystemBlue,
@@ -59,7 +58,6 @@ class CustomThemeFields {
     Color? iosSystemGray4,
     Color? iosSystemGray5,
     Color? iosSystemGray6,
-    Color? twitterBlue,
   })  : iosSystemBlue = iosSystemBlue ?? Colors.blue,
         iosSystemGreen = iosSystemGreen ?? Colors.green,
         iosSystemIndigo = iosSystemIndigo ?? Colors.indigo,
@@ -74,6 +72,5 @@ class CustomThemeFields {
         iosSystemGray3 = iosSystemGray3 ?? Colors.grey,
         iosSystemGray4 = iosSystemGray4 ?? Colors.blueGrey,
         iosSystemGray5 = iosSystemGray5 ?? Colors.blueGrey,
-        iosSystemGray6 = iosSystemGray6 ?? Colors.blueGrey,
-        twitterBlue = twitterBlue ?? const Color(0xff55acee);
+        iosSystemGray6 = iosSystemGray6 ?? Colors.blueGrey;
 }

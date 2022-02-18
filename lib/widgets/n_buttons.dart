@@ -4,6 +4,7 @@ import 'dart:ui' show lerpDouble;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:nacey_flutter_tools/theme/text_style.dart';
 
 // Measured against iOS 12 in Xcode.
 const EdgeInsets _kButtonPadding = EdgeInsets.all(8.0);
@@ -311,8 +312,26 @@ class NButton extends ButtonStyleButton {
       } else if (useCupertino) {
         padding ??= _kBackgroundButtonPadding;
       } else {
-        padding ??=
-            (Platform.isIOS) ? _kBackgroundButtonPadding : _kButtonPadding;
+        padding ??= (Platform.isIOS || Platform.isMacOS)
+            ? _kBackgroundButtonPadding
+            : _kButtonPadding;
+      }
+    }
+    if (textStyle == null) {
+      if (useMaterial) {
+        textStyle ??= const TextStyle(fontFamily: 'Roboto');
+      } else if (useCupertino) {
+        textStyle ??= const TextStyle(fontFamily: 'SanFrancisco-Compact');
+      } else {
+        textStyle ??= (Platform.isIOS)
+            ? const TextStyle(fontFamily: 'SanFrancisco-Compact')
+            : (Platform.isMacOS)
+                ? const TextStyle(fontFamily: 'SanFrancisco-Pro')
+                : (Platform.isAndroid)
+                    ? const TextStyle(fontFamily: 'Roboto')
+                    : (Platform.isWindows)
+                        ? const TextStyle(fontFamily: 'Segoe')
+                        : const TextStyle(fontFamily: 'Arial');
       }
     }
     final MaterialStateProperty<double>? elevationValue =
