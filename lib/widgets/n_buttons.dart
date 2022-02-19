@@ -327,7 +327,7 @@ class NButton extends ButtonStyleButton {
     return ButtonStyle(
       textStyle: NButton.allOrNull<TextStyle>(textStyle),
       foregroundColor: NButton.allOrNull(foregroundColor),
-      backgroundColor: NButton.allOrNull(backgroundColor),
+      backgroundColor: NButton.allOrNull(Colors.pinkAccent),
       overlayColor: NButton.allOrNull(overlayColor),
       shadowColor: NButton.allOrNull<Color>(shadowColor),
       elevation: elevationValue,
@@ -473,7 +473,7 @@ class NButton extends ButtonStyleButton {
     return EdgeInsetsGeometry.lerp(
         geometry2x, geometry3x, textScaleFactor - 2)!;
   }
-//endregion
+  //endregion
 }
 
 @immutable
