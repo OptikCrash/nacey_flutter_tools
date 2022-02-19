@@ -391,7 +391,7 @@ class NButton extends ButtonStyleButton {
                             : 'Arial';
 
     ButtonStyle buttonStyle = styleFrom(
-      backgroundColor: null,
+      backgroundColor: Colors.pinkAccent,
       foregroundColor: colorScheme.primary,
       overlayColor: colorScheme.primary.withOpacity(0.2),
       shadowColor: theme.shadowColor,
