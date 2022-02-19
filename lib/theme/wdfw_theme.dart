@@ -24,7 +24,6 @@ class WDFWTheme extends Theme {
         toggleableActiveColor: wdfwYellow600,
         brightness: Brightness.light,
         visualDensity: ThemeData.light().visualDensity,
-        primaryColorBrightness: ThemeData.light().primaryColorBrightness,
         canvasColor: wdfwGreyCool100,
         shadowColor: ThemeData.light().shadowColor,
         scaffoldBackgroundColor: wdfwGreyCool50,
@@ -215,10 +214,6 @@ class WDFWTheme extends Theme {
           iosSystemGray4: iosSystemGray4,
           iosSystemGray5: iosSystemGray5,
           iosSystemGray6: iosSystemGray6,
-          fireEngineRed: fireEngineRed,
-          stopSignRed: stopSignRed,
-          xMasGreen: xMasGreen,
-          twitterBlue: twitterBlue,
         ));
 
   static ThemeData get darkTheme => ThemeData.dark().copyWith(
@@ -228,7 +223,6 @@ class WDFWTheme extends Theme {
         toggleableActiveColor: wdfwYellow600,
         brightness: Brightness.dark,
         visualDensity: ThemeData.dark().visualDensity,
-        primaryColorBrightness: ThemeData.dark().primaryColorBrightness,
         canvasColor: wdfwGreyWarm900,
         shadowColor: ThemeData.dark().shadowColor,
         scaffoldBackgroundColor: const Color(0xC7252525),
@@ -425,10 +419,6 @@ class WDFWTheme extends Theme {
           iosSystemGray4: iosSystemGray4Night,
           iosSystemGray5: iosSystemGray5Night,
           iosSystemGray6: iosSystemGray6Night,
-          fireEngineRed: fireEngineRed,
-          stopSignRed: stopSignRed,
-          xMasGreen: xMasGreen,
-          twitterBlue: twitterBlue,
         ));
 
   static ThemeData get fallback => lightTheme;
@@ -438,9 +428,6 @@ CustomThemeFields wdfwTheme(BuildContext context) => Theme.of(context).themed;
 
 class WDFWFields extends CustomThemeFields {
   late final Color sliverTopperColor;
-  late final Color fireEngineRed;
-  late final Color stopSignRed;
-  late final Color xMasGreen;
 
   WDFWFields({
     Color? sliverTopperColor,
@@ -462,11 +449,7 @@ class WDFWFields extends CustomThemeFields {
     Color? fireEngineRed,
     Color? stopSignRed,
     Color? xMasGreen,
-    Color? twitterBlue,
   })  : sliverTopperColor = sliverTopperColor ?? Colors.pink,
-        fireEngineRed = fireEngineRed ?? const Color(0xffce2029),
-        stopSignRed = stopSignRed ?? const Color(0xffF9152F),
-        xMasGreen = xMasGreen ?? const Color(0xff006400),
         super(
           iosSystemBlue: iosSystemBlue,
           iosSystemGreen: iosSystemGreen,
@@ -483,6 +466,5 @@ class WDFWFields extends CustomThemeFields {
           iosSystemGray4: iosSystemGray4,
           iosSystemGray5: iosSystemGray5,
           iosSystemGray6: iosSystemGray6,
-          twitterBlue: twitterBlue,
         );
 }

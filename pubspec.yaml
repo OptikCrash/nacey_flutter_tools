@@ -1,7 +1,6 @@
 name: nacey_flutter_tools
 description: A new Flutter package project.
 version: 0.0.1
-homepage:
 
 environment:
   sdk: ">=2.15.1 <3.0.0"
@@ -18,12 +17,244 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^1.0.0
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter.
 flutter:
-
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: fonts/roboto/roboto_thin.ttf
+          weight: 100
+        - asset: fonts/roboto/roboto_thin_italic.ttf
+          weight: 100
+          style: italic
+        - asset: fonts/roboto/roboto_light.ttf
+          weight: 300
+        - asset: fonts/roboto/roboto_light_italic.ttf
+          weight: 300
+          style: italic
+        - asset: fonts/roboto/roboto_regular.ttf
+          weight: 400
+        - asset: fonts/roboto/roboto_italic.ttf
+          weight: 400
+          style: italic
+        - asset: fonts/roboto/roboto_medium.ttf
+          weight: 500
+        - asset: fonts/roboto/roboto_medium_italic.ttf
+          weight: 500
+          style: italic
+        - asset: fonts/roboto/roboto_bold.ttf
+          weight: 700
+        - asset: fonts/roboto/roboto_bold_italic.ttf
+          weight: 700
+          style: italic
+        - asset: fonts/roboto/roboto_black.ttf
+          weight: 900
+        - asset: fonts/roboto/roboto_black_italic.ttf
+          weight: 900
+          style: italic
+    - family: Segoe
+      fonts:
+        - asset: fonts/segoe/segoe_ui.ttf
+    - family: SanFrancisco-Pro
+      fonts:
+        - asset: fonts/sf_pro/sf_pro.ttf
+          weight: 400
+        - asset: fonts/sf_pro/sf_pro_italic.ttf
+          weight: 400
+          style: italic
+        - asset: fonts/sf_pro/sf_pro_text_thin.ttf
+          weight: 100
+        - asset: fonts/sf_pro/sf_pro_text_thin_italic.ttf
+          weight: 100
+          style: italic
+        - asset: fonts/sf_pro/sf_pro_text_ultra_light.ttf
+          weight: 200
+        - asset: fonts/sf_pro/sf_pro_text_ultra_light_italic.ttf
+          weight: 200
+          style: italic
+        - asset: fonts/sf_pro/sf_pro_text_light.ttf
+          weight: 300
+        - asset: fonts/sf_pro/sf_pro_text_light_italic.ttf
+          weight: 300
+          style: italic
+        - asset: fonts/sf_pro/sf_pro_text_regular.ttf
+          weight: 400
+        - asset: fonts/sf_pro/sf_pro_text_regular_italic.ttf
+          weight: 400
+          style: italic
+        - asset: fonts/sf_pro/sf_pro_text_medium.ttf
+          weight: 500
+        - asset: fonts/sf_pro/sf_pro_text_medium_italic.ttf
+          weight: 500
+          style: italic
+        - asset: fonts/sf_pro/sf_pro_text_semi_bold.ttf
+          weight: 600
+        - asset: fonts/sf_pro/sf_pro_text_semi_bold_italic.ttf
+          weight: 600
+          style: italic
+        - asset: fonts/sf_pro/sf_pro_text_bold.ttf
+          weight: 700
+        - asset: fonts/sf_pro/sf_pro_text_bold_italic.ttf
+          weight: 700
+          style: italic
+        - asset: fonts/sf_pro/sf_pro_text_extra_bold.ttf
+          weight: 800
+        - asset: fonts/sf_pro/sf_pro_text_extra_bold_italic.ttf
+          weight: 800
+          style: italic
+        - asset: fonts/sf_pro/sf_pro_text_black.ttf
+          weight: 900
+        - asset: fonts/sf_pro/sf_pro_text_black_italic.ttf
+          weight: 900
+          style: italic
+        - asset: fonts/sf_pro/sf_pro_rounded_thin.ttf
+          weight: 100
+        - asset: fonts/sf_pro/sf_pro_rounded_ultra_light.ttf
+          weight: 200
+        - asset: fonts/sf_pro/sf_pro_rounded_light.ttf
+          weight: 300
+        - asset: fonts/sf_pro/sf_pro_rounded_regular.ttf
+          weight: 400
+        - asset: fonts/sf_pro/sf_pro_rounded_medium.ttf
+          weight: 500
+        - asset: fonts/sf_pro/sf_pro_rounded_semi_bold.ttf
+          weight: 600
+        - asset: fonts/sf_pro/sf_pro_rounded_bold.ttf
+          weight: 700
+        - asset: fonts/sf_pro/sf_pro_rounded_heavy.ttf
+          weight: 800
+        - asset: fonts/sf_pro/sf_pro_rounded_black.ttf
+          weight: 900
+        - asset: fonts/sf_pro/sf_pro_display_thin.ttf
+          weight: 100
+        - asset: fonts/sf_pro/sf_pro_display_thin_italic.ttf
+          weight: 100
+          style: italic
+        - asset: fonts/sf_pro/sf_pro_display_ultra_light.ttf
+          weight: 200
+        - asset: fonts/sf_pro/sf_pro_display_ultra_light_italic.ttf
+          weight: 200
+          style: italic
+        - asset: fonts/sf_pro/sf_pro_display_light.ttf
+          weight: 300
+        - asset: fonts/sf_pro/sf_pro_display_light_italic.ttf
+          weight: 300
+          style: italic
+        - asset: fonts/sf_pro/sf_pro_display_regular.ttf
+          weight: 400
+        - asset: fonts/sf_pro/sf_pro_display_regular_italic.ttf
+          weight: 400
+          style: italic
+        - asset: fonts/sf_pro/sf_pro_display_medium.ttf
+          weight: 500
+        - asset: fonts/sf_pro/sf_pro_display_medium_italic.ttf
+          weight: 500
+          style: italic
+        - asset: fonts/sf_pro/sf_pro_display_semi_bold.ttf
+          weight: 600
+        - asset: fonts/sf_pro/sf_pro_display_semi_bold_italic.ttf
+          weight: 600
+          style: italic
+        - asset: fonts/sf_pro/sf_pro_display_bold.ttf
+          weight: 700
+        - asset: fonts/sf_pro/sf_pro_display_bold_italic.ttf
+          weight: 700
+          style: italic
+        - asset: fonts/sf_pro/sf_pro_display_heavy.ttf
+          weight: 800
+        - asset: fonts/sf_pro/sf_pro_display_heavy_italic.ttf
+          weight: 800
+          style: italic
+        - asset: fonts/sf_pro/sf_pro_display_black.ttf
+          weight: 900
+        - asset: fonts/sf_pro/sf_pro_display_black_italic.ttf
+          weight: 900
+          style: italic
+    - family: SanFrancisco-Compact
+      fonts:
+        - asset: fonts/sf_compact/sf_compact.ttf
+        - asset: fonts/sf_compact/sf_compact_italic.ttf
+          style: italic
+        - asset: fonts/sf_compact/sf_compact_display_thin.otf
+          weight: 100
+        - asset: fonts/sf_compact/sf_compact_display_ultra_light.otf
+          weight: 200
+        - asset: fonts/sf_compact/sf_compact_display_light.otf
+          weight: 300
+        - asset: fonts/sf_compact/sf_compact_display_regular.otf
+          weight: 400
+        - asset: fonts/sf_compact/sf_compact_display_medium.otf
+          weight: 500
+        - asset: fonts/sf_compact/sf_compact_display_semi_bold.otf
+          weight: 600
+        - asset: fonts/sf_compact/sf_compact_display_bold.otf
+          weight: 700
+        - asset: fonts/sf_compact/sf_compact_display_heavy.otf
+          weight: 800
+        - asset: fonts/sf_compact/sf_compact_display_black.otf
+          weight: 900
+        - asset: fonts/sf_compact/sf_compact_rounded_thin.otf
+          weight: 100
+        - asset: fonts/sf_compact/sf_compact_rounded_ultra_light.otf
+          weight: 200
+        - asset: fonts/sf_compact/sf_compact_rounded_light.otf
+          weight: 300
+        - asset: fonts/sf_compact/sf_compact_rounded_regular.otf
+          weight: 400
+        - asset: fonts/sf_compact/sf_compact_rounded_medium.otf
+          weight: 500
+        - asset: fonts/sf_compact/sf_compact_rounded_semi_bold.otf
+          weight: 600
+        - asset: fonts/sf_compact/sf_compact_rounded_bold.otf
+          weight: 700
+        - asset: fonts/sf_compact/sf_compact_rounded_heavy.otf
+          weight: 800
+        - asset: fonts/sf_compact/sf_compact_rounded_black.otf
+          weight: 900
+        - asset: fonts/sf_compact/sf_compact_text_thin.otf
+          weight: 100
+        - asset: fonts/sf_compact/sf_compact_text_thin_italic.otf
+          weight: 100
+          style: italic
+        - asset: fonts/sf_compact/sf_compact_text_ultra_light.otf
+          weight: 200
+        - asset: fonts/sf_compact/sf_compact_text_ultra_light_italic.otf
+          weight: 200
+          style: italic
+        - asset: fonts/sf_compact/sf_compact_text_light.otf
+          weight: 300
+        - asset: fonts/sf_compact/sf_compact_text_light_italic.otf
+          weight: 300
+          style: italic
+        - asset: fonts/sf_compact/sf_compact_text_regular.otf
+          weight: 400
+        - asset: fonts/sf_compact/sf_compact_text_regular_italic.otf
+          weight: 400
+          style: italic
+        - asset: fonts/sf_compact/sf_compact_text_medium.otf
+          weight: 500
+        - asset: fonts/sf_compact/sf_compact_text_medium_italic.otf
+          weight: 500
+          style: italic
+        - asset: fonts/sf_compact/sf_compact_text_semi_bold.otf
+          weight: 600
+        - asset: fonts/sf_compact/sf_compact_text_semi_bold_italic.otf
+          weight: 600
+          style: italic
+        - asset: fonts/sf_compact/sf_compact_text_bold.otf
+          weight: 700
+        - asset: fonts/sf_compact/sf_compact_text_bold_italic.otf
+          weight: 700
+          style: italic
+        - asset: fonts/sf_compact/sf_compact_text_heavy.otf
+          weight: 800
+        - asset: fonts/sf_compact/sf_compact_text_heavy_italic.otf
+          weight: 800
+          style: italic
+        - asset: fonts/sf_compact/sf_compact_text_black.otf
+          weight: 900
+        - asset: fonts/sf_compact/sf_compact_text_black_italic.otf
+          weight: 900
+          style: italic
   # To add assets to your package, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

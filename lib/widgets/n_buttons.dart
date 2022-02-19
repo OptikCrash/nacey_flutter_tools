@@ -311,8 +311,9 @@ class NButton extends ButtonStyleButton {
       } else if (useCupertino) {
         padding ??= _kBackgroundButtonPadding;
       } else {
-        padding ??=
-            (Platform.isIOS) ? _kBackgroundButtonPadding : _kButtonPadding;
+        padding ??= (Platform.isIOS || Platform.isMacOS)
+            ? _kBackgroundButtonPadding
+            : _kButtonPadding;
       }
     }
     final MaterialStateProperty<double>? elevationValue =
@@ -375,14 +376,28 @@ class NButton extends ButtonStyleButton {
                 ? scaledPaddingCupertino
                 : scaledPaddingMaterial;
 
+    final fontFamily = (useMaterial)
+        ? 'Roboto'
+        : (useCupertino)
+            ? 'SanFrancisco-Compact'
+            : (Platform.isIOS)
+                ? 'SanFrancisco-Compact'
+                : (Platform.isMacOS)
+                    ? 'SanFrancisco-Pro'
+                    : (Platform.isAndroid)
+                        ? 'Roboto'
+                        : (Platform.isWindows)
+                            ? 'Segoe'
+                            : 'Arial';
+
     ButtonStyle buttonStyle = styleFrom(
       backgroundColor: null,
       foregroundColor: colorScheme.primary,
       overlayColor: colorScheme.primary.withOpacity(0.2),
       shadowColor: theme.shadowColor,
       elevation: 2,
-      textStyle:
-          theme.textTheme.button?.copyWith(color: theme.colorScheme.primary),
+      textStyle: theme.textTheme.button
+          ?.copyWith(color: theme.colorScheme.primary, fontFamily: fontFamily),
       padding: scaledPadding,
       minimumSize: const Size(64, 36),
       maximumSize: Size.infinite,
