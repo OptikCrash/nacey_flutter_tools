@@ -5,71 +5,62 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-// Measured against iOS 12 in Xcode.
-const EdgeInsets _kButtonPadding = EdgeInsets.all(8.0);
-const EdgeInsets _kBackgroundButtonPadding = EdgeInsets.symmetric(
-  vertical: 14.0,
-  horizontal: 64.0,
-);
+import '../nacey_flutter_tools.dart';
 
 class NButton extends ButtonStyleButton {
   //region constructors
-  const NButton({
-    Key? key,
-    required this.onPressed,
-    required this.child,
-    this.onLongPress,
-    this.onHover,
-    this.onFocusChange,
-    this.style,
-    this.focusNode,
-    this.padding,
-    this.pressedOpacity,
-    this.onHighlightChanged,
-    this.mouseCursor,
-    this.textStyle,
-    this.fillColor,
-    this.focusColor,
-    this.hoverColor,
-    this.highlightColor,
-    this.splashColor,
-    this.disabledColor = CupertinoColors.quaternarySystemFill,
-    this.autofocus = false,
-    this.clipBehavior = Clip.none,
-    this.alignment = Alignment.center,
-    this.minSize = kMinInteractiveDimensionCupertino,
-    this.borderRadius = const BorderRadius.all(Radius.circular(8.0)),
-    this.elevation = 2.0,
-    this.hoverElevation = 4.0,
-    this.focusElevation = 4.0,
-    this.highlightElevation = 8.0,
-    this.disabledElevation = 0.0,
-    this.visualDensity = VisualDensity.standard,
-    this.constraints = const BoxConstraints(minWidth: 86.0, minHeight: 36.0),
-    this.shape = const RoundedRectangleBorder(
-      side: BorderSide(color: CupertinoColors.inactiveGray),
-      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-    ),
-    this.animationDuration = kThemeChangeDuration,
-    this.materialTapTargetSize = MaterialTapTargetSize.padded,
-    this.enableFeedback = true,
-    this.useMaterial = false,
-    this.useCupertino = false,
-    this.isFlat = false,
-    this.isFilled = false,
-    this.isTinted = false,
-    this.isIconOnly = false,
-  })  : assert(shape != null),
-        assert(elevation != null && elevation >= 0.0),
-        assert(focusElevation != null && focusElevation >= 0.0),
-        assert(hoverElevation != null && hoverElevation >= 0.0),
-        assert(highlightElevation != null && highlightElevation >= 0.0),
-        assert(disabledElevation != null && disabledElevation >= 0.0),
-        assert(constraints != null),
-        assert(animationDuration != null),
-        assert(clipBehavior != null),
-        assert(autofocus != null),
-        super(
+  const NButton(
+      {Key? key,
+      required onPressed,
+      required child,
+      onLongPress,
+      onHover,
+      onFocusChange,
+      style,
+      focusNode,
+      this.padding,
+      this.pressedOpacity,
+      this.onHighlightChanged,
+      this.mouseCursor,
+      this.enabledMouseCursor,
+      this.hoveredMouseCursor,
+      this.disabledMouseCursor,
+      this.textStyle,
+      this.fillColor,
+      this.focusColor,
+      this.hoverColor,
+      this.highlightColor,
+      this.splashColor,
+      this.disabledColor = CupertinoColors.quaternarySystemFill,
+      autofocus = false,
+      clipBehavior = Clip.none,
+      this.alignment = Alignment.center,
+      this.minSize,
+      this.borderRadius,
+      this.elevation,
+      this.hoverElevation,
+      this.focusElevation,
+      this.highlightElevation,
+      this.disabledElevation,
+      this.visualDensity = VisualDensity.standard,
+      this.constraints,
+      this.shape,
+      this.animationDuration = kThemeChangeDuration,
+      this.materialTapTargetSize = MaterialTapTargetSize.padded,
+      this.enableFeedback = true,
+      this.useMaterial = false,
+      this.useCupertino = false,
+      this.useCupertinoPro = false,
+      this.useFluent = false,
+      this.useLinux = false,
+      this.useWeb = false,
+      this.isGrey = false,
+      this.isFlat = false,
+      this.isFilled = false,
+      this.isTinted = false,
+      this.isIconOnly = false,
+      this.corner = CornerType.circular})
+      : super(
           key: key,
           onPressed: onPressed,
           onLongPress: onLongPress,
@@ -92,6 +83,8 @@ class NButton extends ButtonStyleButton {
     FocusNode? focusNode,
     bool? autofocus,
     Clip? clipBehavior,
+    CornerType corner = CornerType.circular,
+    IconPlacement? iconPlacement,
   }) =>
       NButtonWithIcon(
         key: key,
@@ -103,6 +96,8 @@ class NButton extends ButtonStyleButton {
         clipBehavior: clipBehavior ?? Clip.none,
         icon: icon,
         label: label,
+        corner: corner,
+        iconPlacement: iconPlacement,
       );
 
   factory NButton.flat({
@@ -114,6 +109,7 @@ class NButton extends ButtonStyleButton {
     FocusNode? focusNode,
     bool? autofocus,
     Clip? clipBehavior,
+    CornerType corner = CornerType.circular,
   }) =>
       NButtonFlat(
         key: key,
@@ -124,6 +120,7 @@ class NButton extends ButtonStyleButton {
         focusNode: focusNode,
         autofocus: autofocus ?? false,
         clipBehavior: clipBehavior ?? Clip.none,
+        corner: corner,
       );
 
   factory NButton.flatWithIcon({
@@ -136,6 +133,8 @@ class NButton extends ButtonStyleButton {
     FocusNode? focusNode,
     bool? autofocus,
     Clip? clipBehavior,
+    CornerType corner = CornerType.circular,
+    IconPlacement? iconPlacement,
   }) =>
       NButtonFlatWithIcon(
         key: key,
@@ -147,6 +146,8 @@ class NButton extends ButtonStyleButton {
         clipBehavior: clipBehavior ?? Clip.none,
         icon: icon,
         label: label,
+        corner: corner,
+        iconPlacement: iconPlacement,
       );
 
   factory NButton.tinted({
@@ -158,6 +159,7 @@ class NButton extends ButtonStyleButton {
     FocusNode? focusNode,
     bool? autofocus,
     Clip? clipBehavior,
+    CornerType corner = CornerType.circular,
   }) =>
       NButtonTinted(
         key: key,
@@ -168,6 +170,7 @@ class NButton extends ButtonStyleButton {
         focusNode: focusNode,
         autofocus: autofocus ?? false,
         clipBehavior: clipBehavior ?? Clip.none,
+        corner: corner,
       );
 
   factory NButton.tintedWithIcon({
@@ -180,6 +183,8 @@ class NButton extends ButtonStyleButton {
     FocusNode? focusNode,
     bool? autofocus,
     Clip? clipBehavior,
+    CornerType corner = CornerType.circular,
+    IconPlacement? iconPlacement,
   }) =>
       NButtonTintedWithIcon(
         key: key,
@@ -191,6 +196,8 @@ class NButton extends ButtonStyleButton {
         clipBehavior: clipBehavior ?? Clip.none,
         icon: icon,
         label: label,
+        corner: corner,
+        iconPlacement: iconPlacement,
       );
 
   factory NButton.filled({
@@ -202,6 +209,7 @@ class NButton extends ButtonStyleButton {
     FocusNode? focusNode,
     bool? autofocus,
     Clip? clipBehavior,
+    CornerType corner = CornerType.circular,
   }) =>
       NButtonFilled(
         key: key,
@@ -212,6 +220,7 @@ class NButton extends ButtonStyleButton {
         focusNode: focusNode,
         autofocus: autofocus ?? false,
         clipBehavior: clipBehavior ?? Clip.none,
+        corner: corner,
       );
 
   factory NButton.filledWithIcon({
@@ -224,6 +233,8 @@ class NButton extends ButtonStyleButton {
     FocusNode? focusNode,
     bool? autofocus,
     Clip? clipBehavior,
+    CornerType corner = CornerType.circular,
+    IconPlacement? iconPlacement,
   }) =>
       NButtonFilledWithIcon(
         key: key,
@@ -235,20 +246,68 @@ class NButton extends ButtonStyleButton {
         clipBehavior: clipBehavior ?? Clip.none,
         icon: icon,
         label: label,
+        corner: corner,
+        iconPlacement: iconPlacement,
+      );
+
+  factory NButton.grey({
+    Key? key,
+    required Widget child,
+    required VoidCallback onPressed,
+    VoidCallback? onLongPress,
+    ButtonStyle? style,
+    FocusNode? focusNode,
+    bool? autofocus,
+    Clip? clipBehavior,
+    CornerType corner = CornerType.circular,
+  }) =>
+      NButtonGrey(
+        key: key,
+        child: child,
+        onPressed: onPressed,
+        onLongPress: onLongPress,
+        style: style,
+        focusNode: focusNode,
+        autofocus: autofocus ?? false,
+        clipBehavior: clipBehavior ?? Clip.none,
+        corner: corner,
+      );
+
+  factory NButton.greyWithIcon({
+    Key? key,
+    required Icon icon,
+    required String label,
+    required VoidCallback onPressed,
+    VoidCallback? onLongPress,
+    ButtonStyle? style,
+    FocusNode? focusNode,
+    bool? autofocus,
+    Clip? clipBehavior,
+    CornerType corner = CornerType.circular,
+    IconPlacement? iconPlacement,
+  }) =>
+      NButtonGreyWithIcon(
+        key: key,
+        onPressed: onPressed,
+        onLongPress: onLongPress,
+        style: style,
+        focusNode: focusNode,
+        autofocus: autofocus ?? false,
+        clipBehavior: clipBehavior ?? Clip.none,
+        icon: icon,
+        label: label,
+        corner: corner,
+        iconPlacement: iconPlacement,
       );
 
   //endregion
   //region properties
-  final Widget child;
-  final VoidCallback onPressed;
-  final VoidCallback? onLongPress;
-  final ValueChanged<bool>? onHover;
-  final ValueChanged<bool>? onFocusChange;
-  final ButtonStyle? style;
-  final FocusNode? focusNode;
   final EdgeInsetsGeometry? padding;
   final ValueChanged<bool>? onHighlightChanged;
   final MouseCursor? mouseCursor;
+  final MouseCursor? enabledMouseCursor;
+  final MouseCursor? hoveredMouseCursor;
+  final MouseCursor? disabledMouseCursor;
   final TextStyle? textStyle;
   final Color? fillColor;
   final Color? focusColor;
@@ -256,29 +315,33 @@ class NButton extends ButtonStyleButton {
   final Color? highlightColor;
   final Color? splashColor;
   final Color disabledColor;
-  final bool autofocus;
-  final Clip clipBehavior;
   final double? minSize;
   final double? pressedOpacity;
   final BorderRadius? borderRadius;
   final AlignmentGeometry alignment;
-  final double elevation;
-  final double hoverElevation;
-  final double focusElevation;
-  final double highlightElevation;
-  final double disabledElevation;
+  final double? elevation;
+  final double? hoverElevation;
+  final double? focusElevation;
+  final double? highlightElevation;
+  final double? disabledElevation;
   final VisualDensity visualDensity;
-  final BoxConstraints constraints;
-  final ShapeBorder shape;
+  final BoxConstraints? constraints;
+  final OutlinedBorder? shape;
   final Duration animationDuration;
   final MaterialTapTargetSize materialTapTargetSize;
   final bool enableFeedback;
   final bool useMaterial;
   final bool useCupertino;
+  final bool useCupertinoPro;
+  final bool useFluent;
+  final bool useLinux;
+  final bool useWeb;
   final bool isFlat;
+  final bool isGrey;
   final bool isFilled;
   final bool isTinted;
   final bool isIconOnly;
+  final CornerType corner;
   //endregion
   //region functions
   ButtonStyle styleFrom({
@@ -297,6 +360,7 @@ class NButton extends ButtonStyleButton {
     BorderSide? side,
     OutlinedBorder? shape,
     MouseCursor? enabledMouseCursor,
+    MouseCursor? hoveredMouseCursor,
     MouseCursor? disabledMouseCursor,
     VisualDensity? visualDensity,
     MaterialTapTargetSize? tapTargetSize,
@@ -305,39 +369,68 @@ class NButton extends ButtonStyleButton {
     AlignmentGeometry? alignment,
     InteractiveInkFeatureFactory? splashFactory,
   }) {
-    if (padding == null) {
-      if (useMaterial) {
-        padding ??= _kButtonPadding;
-      } else if (useCupertino) {
-        padding ??= _kBackgroundButtonPadding;
-      } else {
-        padding ??= (Platform.isIOS || Platform.isMacOS)
-            ? _kBackgroundButtonPadding
-            : _kButtonPadding;
-      }
-    }
-    final MaterialStateProperty<double>? elevationValue =
-        (elevation == null) ? null : _NButtonDefaultElevation(elevation);
-    final MaterialStateProperty<MouseCursor>? mouseCursor =
-        (enabledMouseCursor == null && disabledMouseCursor == null)
-            ? null
-            : _NButtonDefaultMouseCursor(
-                enabledMouseCursor!, disabledMouseCursor!);
+    final OS _operatingSystem = (useMaterial)
+        ? OS.android
+        : (useCupertino)
+            ? OS.ios
+            : (useCupertinoPro)
+                ? OS.mac
+                : (useFluent)
+                    ? OS.windows
+                    : (useLinux)
+                        ? OS.linux
+                        : (useWeb)
+                            ? OS.web
+                            : (Platform.isAndroid)
+                                ? OS.android
+                                : (Platform.isIOS)
+                                    ? OS.ios
+                                    : (Platform.isMacOS)
+                                        ? OS.mac
+                                        : (Platform.isWindows)
+                                            ? OS.windows
+                                            : (Platform.isLinux)
+                                                ? OS.linux
+                                                : OS.web;
+    final ButtonKind _buttonKind = (isFlat)
+        ? ButtonKind.flat
+        : (isFilled)
+            ? ButtonKind.filled
+            : (isTinted)
+                ? ButtonKind.tinted
+                : (isGrey)
+                    ? ButtonKind.grey
+                    : ButtonKind.outlined;
+    final MaterialStateProperty<Color?> _background = _NButtonDefaultBackground(
+        primary, backgroundColor, onSurface, _buttonKind, _operatingSystem);
+    final MaterialStateProperty<Color?> _foreground = _NButtonDefaultForeground(
+        primary, textStyle?.color, onSurface, _buttonKind, _operatingSystem);
+    final MaterialStateProperty<Color?> _overlay = _NButtonDefaultOverlay(
+        onSurface,
+        backgroundColor,
+        textStyle?.color ?? onSurface,
+        _buttonKind,
+        _operatingSystem);
+    final MaterialStateProperty<double>? _elevationValue =
+        _NButtonDefaultElevation(_buttonKind, _operatingSystem);
+    final MaterialStateProperty<MouseCursor?>? _mouseCursor =
+        _NButtonDefaultMouseCursor(mouseCursor, enabledMouseCursor,
+            disabledMouseCursor, hoveredMouseCursor, _operatingSystem);
 
     return ButtonStyle(
-      textStyle: NButton.allOrNull<TextStyle>(textStyle),
-      foregroundColor: NButton.allOrNull(foregroundColor),
-      backgroundColor: NButton.allOrNull(Colors.pinkAccent),
-      overlayColor: NButton.allOrNull(overlayColor),
+      textStyle: NButton.allOrNull(textStyle),
+      foregroundColor: _foreground,
+      backgroundColor: _background,
+      overlayColor: _overlay,
       shadowColor: NButton.allOrNull<Color>(shadowColor),
-      elevation: elevationValue,
+      elevation: _elevationValue,
       padding: NButton.allOrNull(padding),
       minimumSize: NButton.allOrNull<Size>(minimumSize),
       fixedSize: NButton.allOrNull<Size>(fixedSize),
       maximumSize: NButton.allOrNull<Size>(maximumSize),
       side: NButton.allOrNull<BorderSide>(side),
       shape: NButton.allOrNull<OutlinedBorder>(shape),
-      mouseCursor: mouseCursor,
+      mouseCursor: _mouseCursor,
       visualDensity: visualDensity,
       tapTargetSize: tapTargetSize,
       animationDuration: animationDuration,
@@ -363,11 +456,45 @@ class NButton extends ButtonStyleButton {
     );
     final EdgeInsetsGeometry scaledPaddingCupertino =
         ButtonStyleButton.scaledPadding(
-      const EdgeInsets.symmetric(horizontal: 64),
-      const EdgeInsets.symmetric(horizontal: 32),
-      const EdgeInsets.symmetric(horizontal: 16),
+      const EdgeInsets.symmetric(horizontal: 12),
+      const EdgeInsets.symmetric(horizontal: 6),
+      const EdgeInsets.symmetric(horizontal: 3),
       MediaQuery.maybeOf(context)?.textScaleFactor ?? 1,
     );
+
+    final OS _operatingSystem = (useMaterial)
+        ? OS.android
+        : (useCupertino)
+            ? OS.ios
+            : (useCupertinoPro)
+                ? OS.mac
+                : (useFluent)
+                    ? OS.windows
+                    : (useLinux)
+                        ? OS.linux
+                        : (useWeb)
+                            ? OS.web
+                            : (Platform.isAndroid)
+                                ? OS.android
+                                : (Platform.isIOS)
+                                    ? OS.ios
+                                    : (Platform.isMacOS)
+                                        ? OS.mac
+                                        : (Platform.isWindows)
+                                            ? OS.windows
+                                            : (Platform.isLinux)
+                                                ? OS.linux
+                                                : OS.web;
+    final ButtonKind _buttonKind = (isFlat)
+        ? ButtonKind.flat
+        : (isFilled)
+            ? ButtonKind.filled
+            : (isTinted)
+                ? ButtonKind.tinted
+                : (isGrey)
+                    ? ButtonKind.grey
+                    : ButtonKind.outlined;
+
     final scaledPadding = (useMaterial)
         ? scaledPaddingMaterial
         : (useCupertino)
@@ -378,39 +505,149 @@ class NButton extends ButtonStyleButton {
 
     final fontFamily = (useMaterial)
         ? 'Roboto'
-        : (useCupertino)
-            ? 'SanFrancisco-Compact'
-            : (Platform.isIOS)
+        : (useFluent)
+            ? 'Segoe'
+            : (useCupertino)
                 ? 'SanFrancisco-Compact'
-                : (Platform.isMacOS)
+                : (useCupertinoPro)
                     ? 'SanFrancisco-Pro'
-                    : (Platform.isAndroid)
-                        ? 'Roboto'
-                        : (Platform.isWindows)
-                            ? 'Segoe'
-                            : 'Arial';
+                    : (useLinux)
+                        ? 'Cantarell'
+                        : (useWeb)
+                            ? 'Arial'
+                            : (Platform.isIOS)
+                                ? 'SanFrancisco-Compact'
+                                : (Platform.isMacOS)
+                                    ? 'SanFrancisco-Pro'
+                                    : (Platform.isAndroid)
+                                        ? 'Roboto'
+                                        : (Platform.isWindows)
+                                            ? 'Segoe'
+                                            : (Platform.isLinux)
+                                                ? 'Cantarell'
+                                                : 'Arial';
+    Color background = (_buttonKind == ButtonKind.filled)
+        ? colorScheme.primary
+        : (_buttonKind == ButtonKind.tinted)
+            ? colorScheme.primary.withOpacity(0.1)
+            : (_buttonKind == ButtonKind.grey)
+                ? colorScheme.onSurface.withOpacity(0.1)
+                : Colors.transparent;
+    Color foreground = (_buttonKind == ButtonKind.filled)
+        ? colorScheme.onPrimary
+        : colorScheme.primary;
+    double borderWidth = (_buttonKind == ButtonKind.flat ||
+            _buttonKind == ButtonKind.tinted &&
+                (_operatingSystem == OS.ios ||
+                    _operatingSystem == OS.mac ||
+                    useCupertino ||
+                    useCupertinoPro))
+        ? 0
+        : (useMaterial && _buttonKind == ButtonKind.outlined)
+            ? 1.25
+            : (useFluent && _buttonKind != ButtonKind.flat)
+                ? 1
+                : 0.5;
+    BorderStyle borderStyle = (_buttonKind == ButtonKind.flat ||
+            _buttonKind == ButtonKind.filled &&
+                _operatingSystem == OS.android ||
+            _buttonKind == ButtonKind.tinted &&
+                (_operatingSystem == OS.ios ||
+                    _operatingSystem == OS.mac ||
+                    useCupertino ||
+                    useCupertinoPro))
+        ? BorderStyle.none
+        : BorderStyle.solid;
+    Color borderColor = (_buttonKind == ButtonKind.flat ||
+            useCupertino ||
+            useCupertinoPro ||
+            _operatingSystem == OS.ios ||
+            _operatingSystem == OS.mac)
+        ? colorScheme.surface
+        : (useMaterial && _buttonKind == ButtonKind.outlined)
+            ? colorScheme.primary
+            : (_buttonKind == ButtonKind.outlined ||
+                    _buttonKind == ButtonKind.filled)
+                ? colorScheme.onSurface
+                : colorScheme.primary;
+
+    BorderSide _side = BorderSide(
+      color: borderColor,
+      width: borderWidth,
+      style: borderStyle,
+    );
+
+    final Size _minSize = Size(
+        (useFluent)
+            ? 120
+            : (useMaterial)
+                ? 100
+                : (useCupertino)
+                    ? 90
+                    : (useCupertinoPro)
+                        ? 100
+                        : (useLinux)
+                            ? 100
+                            : (useWeb)
+                                ? 120
+                                : 36,
+        (useFluent)
+            ? 32
+            : (useMaterial)
+                ? 36
+                : (useCupertino)
+                    ? 44
+                    : (useCupertinoPro)
+                        ? 46
+                        : (useLinux)
+                            ? 30
+                            : (useWeb)
+                                ? 48
+                                : 36);
+
+    final double _fontSize = (useMaterial)
+        ? 14
+        : (useCupertino)
+            ? 16
+            : (useCupertinoPro)
+                ? 16
+                : (useFluent)
+                    ? 14
+                    : (useLinux)
+                        ? 16
+                        : (useWeb)
+                            ? 24
+                            : 18;
+    final FontWeight _fontWeight = (useMaterial)
+        ? FontWeight.w600
+        : (useCupertino)
+            ? FontWeight.w600
+            : (useCupertinoPro)
+                ? FontWeight.w600
+                : (useFluent)
+                    ? FontWeight.w600
+                    : (useLinux)
+                        ? FontWeight.w600
+                        : (useWeb)
+                            ? FontWeight.w400
+                            : FontWeight.w600;
 
     ButtonStyle buttonStyle = styleFrom(
-      backgroundColor: Colors.pinkAccent,
-      foregroundColor: colorScheme.primary,
+      textStyle: theme.textTheme.button?.copyWith(
+        color: foreground,
+        fontFamily: fontFamily,
+        fontWeight: _fontWeight,
+        fontSize: _fontSize,
+      ),
+      backgroundColor: background,
+      foregroundColor: foreground,
       overlayColor: colorScheme.primary.withOpacity(0.2),
       shadowColor: theme.shadowColor,
-      elevation: 2,
-      textStyle: theme.textTheme.button
-          ?.copyWith(color: theme.colorScheme.primary, fontFamily: fontFamily),
       padding: scaledPadding,
-      minimumSize: const Size(64, 36),
+      minimumSize: _minSize,
       maximumSize: Size.infinite,
-      side: BorderSide(
-        color: ThemeData.estimateBrightnessForColor(colorScheme.surface) ==
-                Brightness.light
-            ? Colors.black12
-            : Colors.white12,
-        width: 1.0,
-        style: BorderStyle.solid,
-      ),
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(4))),
+      side: _side,
+      shape: _nButtonDefaultShape(_side, _operatingSystem),
       enabledMouseCursor: SystemMouseCursors.click,
       disabledMouseCursor: SystemMouseCursors.basic,
       visualDensity: theme.visualDensity,
@@ -422,23 +659,7 @@ class NButton extends ButtonStyleButton {
       primary: colorScheme.primary,
       onSurface: colorScheme.onSurface,
     );
-    if (isFlat) {
-      return buttonStyle.copyWith(
-          backgroundColor: null,
-          side: NButton.allOrNull(const BorderSide(color: Colors.transparent)));
-    } else if (isTinted) {
-      return buttonStyle.copyWith(
-          shadowColor: NButton.allOrNull(Colors.transparent),
-          backgroundColor:
-              NButton.allOrNull(colorScheme.primary.withOpacity(0.1)));
-    } else if (isFilled) {
-      return buttonStyle.copyWith(
-          textStyle: NButton.allOrNull(TextStyle(color: colorScheme.onPrimary)),
-          foregroundColor: NButton.allOrNull(colorScheme.onPrimary),
-          backgroundColor: NButton.allOrNull(colorScheme.primary));
-    } else {
-      return buttonStyle;
-    }
+    return buttonStyle;
   }
 
   @override
@@ -457,11 +678,6 @@ class NButton extends ButtonStyleButton {
     EdgeInsetsGeometry geometry3x,
     double textScaleFactor,
   ) {
-    assert(geometry1x != null);
-    assert(geometry2x != null);
-    assert(geometry3x != null);
-    assert(textScaleFactor != null);
-
     if (textScaleFactor <= 1) {
       return geometry1x;
     } else if (textScaleFactor >= 3) {
@@ -473,64 +689,26 @@ class NButton extends ButtonStyleButton {
     return EdgeInsetsGeometry.lerp(
         geometry2x, geometry3x, textScaleFactor - 2)!;
   }
-  //endregion
-}
-
-@immutable
-class _NButtonDefaultElevation extends MaterialStateProperty<double>
-    with Diagnosticable {
-  _NButtonDefaultElevation(this.elevation);
-
-  final double elevation;
-
-  @override
-  double resolve(Set<MaterialState> states) {
-    if (states.contains(MaterialState.disabled)) {
-      return 0;
-    }
-    if (states.contains(MaterialState.hovered)) {
-      return elevation + 2;
-    }
-    if (states.contains(MaterialState.focused)) {
-      return elevation + 2;
-    }
-    if (states.contains(MaterialState.pressed)) {
-      return elevation + 6;
-    }
-    return elevation;
-  }
-}
-
-@immutable
-class _NButtonDefaultMouseCursor extends MaterialStateProperty<MouseCursor>
-    with Diagnosticable {
-  _NButtonDefaultMouseCursor(this.enabledCursor, this.disabledCursor);
-
-  final MouseCursor enabledCursor;
-  final MouseCursor disabledCursor;
-
-  @override
-  MouseCursor resolve(Set<MaterialState> states) {
-    if (states.contains(MaterialState.disabled)) return disabledCursor;
-    return enabledCursor;
-  }
+//endregion
 }
 
 class NButtonWithIcon extends NButton {
   NButtonWithIcon({
     Key? key,
-    required VoidCallback onPressed,
     required Icon icon,
     required String label,
+    required VoidCallback onPressed,
     VoidCallback? onLongPress,
     ValueChanged<bool>? onHover,
     ValueChanged<bool>? onFocusChange,
     ButtonStyle? style,
     FocusNode? focusNode,
     EdgeInsetsGeometry? padding,
-    double? pressedOpacity,
     ValueChanged<bool>? onHighlightChanged,
     MouseCursor? mouseCursor,
+    MouseCursor? enabledMouseCursor,
+    MouseCursor? hoveredMouseCursor,
+    MouseCursor? disabledMouseCursor,
     TextStyle? textStyle,
     Color? fillColor,
     Color? focusColor,
@@ -540,34 +718,38 @@ class NButtonWithIcon extends NButton {
     Color disabledColor = CupertinoColors.quaternarySystemFill,
     bool autofocus = false,
     Clip clipBehavior = Clip.none,
+    double? minSize,
+    double? pressedOpacity,
+    BorderRadius? borderRadius,
     AlignmentGeometry alignment = Alignment.center,
-    double minSize = kMinInteractiveDimensionCupertino,
-    BorderRadius borderRadius = const BorderRadius.all(Radius.circular(8.0)),
-    double elevation = 2.0,
-    double hoverElevation = 4.0,
-    double focusElevation = 4.0,
-    double highlightElevation = 8.0,
-    double disabledElevation = 0.0,
+    double? elevation,
+    double? hoverElevation,
+    double? focusElevation,
+    double? highlightElevation,
+    double? disabledElevation,
     VisualDensity visualDensity = VisualDensity.standard,
-    BoxConstraints constraints =
-        const BoxConstraints(minWidth: 88.0, minHeight: 36.0),
-    ShapeBorder shape = const RoundedRectangleBorder(
-      side: BorderSide(color: CupertinoColors.inactiveGray),
-      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-    ),
+    BoxConstraints? constraints,
+    OutlinedBorder? shape,
     Duration animationDuration = kThemeChangeDuration,
     MaterialTapTargetSize materialTapTargetSize = MaterialTapTargetSize.padded,
     bool enableFeedback = true,
     bool useMaterial = false,
     bool useCupertino = false,
+    bool useCupertinoPro = false,
+    bool useFluent = false,
+    bool useLinux = false,
+    bool useWeb = false,
     bool isFlat = false,
+    bool isGrey = false,
     bool isFilled = false,
     bool isTinted = false,
-  })  : assert(icon != null),
-        assert(label != null),
-        super(
+    bool isIconOnly = false,
+    CornerType corner = CornerType.circular,
+    IconPlacement? iconPlacement,
+  }) : super(
           key: key,
-          child: _NButtonWithIconChild(icon: icon, label: Text(label)),
+          child: _NButtonWithIconChild(
+              icon: icon, label: Text(label), iconPlacement: iconPlacement),
           onPressed: onPressed,
           onLongPress: onLongPress,
           onHover: onHover,
@@ -577,6 +759,9 @@ class NButtonWithIcon extends NButton {
           padding: padding,
           onHighlightChanged: onHighlightChanged,
           mouseCursor: mouseCursor,
+          enabledMouseCursor: enabledMouseCursor,
+          hoveredMouseCursor: hoveredMouseCursor,
+          disabledMouseCursor: disabledMouseCursor,
           textStyle: textStyle,
           fillColor: fillColor,
           focusColor: focusColor,
@@ -603,9 +788,16 @@ class NButtonWithIcon extends NButton {
           enableFeedback: enableFeedback,
           useMaterial: useMaterial,
           useCupertino: useCupertino,
+          useCupertinoPro: useCupertinoPro,
+          useFluent: useFluent,
+          useLinux: useLinux,
+          useWeb: useWeb,
           isFlat: isFlat,
+          isGrey: isGrey,
           isFilled: isFilled,
           isTinted: isTinted,
+          isIconOnly: isIconOnly,
+          corner: corner,
         );
 }
 
@@ -622,8 +814,10 @@ class NButtonFlat extends NButton {
     FocusNode? focusNode,
     EdgeInsetsGeometry? padding,
     ValueChanged<bool>? onHighlightChanged,
-    double? pressedOpacity,
     MouseCursor? mouseCursor,
+    MouseCursor? enabledMouseCursor,
+    MouseCursor? hoveredMouseCursor,
+    MouseCursor? disabledMouseCursor,
     TextStyle? textStyle,
     Color? fillColor,
     Color? focusColor,
@@ -633,23 +827,29 @@ class NButtonFlat extends NButton {
     Color disabledColor = CupertinoColors.quaternarySystemFill,
     bool autofocus = false,
     Clip clipBehavior = Clip.none,
-    double? minSize = kMinInteractiveDimensionCupertino,
-    BorderRadius? borderRadius = const BorderRadius.all(Radius.circular(8.0)),
+    double? minSize,
+    double? pressedOpacity,
+    BorderRadius? borderRadius,
     AlignmentGeometry alignment = Alignment.center,
-    double elevation = 2.0,
-    double hoverElevation = 4.0,
-    double focusElevation = 4.0,
-    double highlightElevation = 8.0,
-    double disabledElevation = 0.0,
+    double? elevation,
+    double? hoverElevation,
+    double? focusElevation,
+    double? highlightElevation,
+    double? disabledElevation,
     VisualDensity visualDensity = VisualDensity.standard,
-    BoxConstraints constraints =
-        const BoxConstraints(minWidth: 88.0, minHeight: 36.0),
-    ShapeBorder shape = const RoundedRectangleBorder(),
+    BoxConstraints? constraints,
+    OutlinedBorder? shape,
     Duration animationDuration = kThemeChangeDuration,
     MaterialTapTargetSize materialTapTargetSize = MaterialTapTargetSize.padded,
     bool enableFeedback = true,
     bool useMaterial = false,
     bool useCupertino = false,
+    bool useCupertinoPro = false,
+    bool useFluent = false,
+    bool useLinux = false,
+    bool useWeb = false,
+    bool isIconOnly = false,
+    CornerType corner = CornerType.circular,
   }) : super(
           key: key,
           child: child,
@@ -662,6 +862,9 @@ class NButtonFlat extends NButton {
           padding: padding,
           onHighlightChanged: onHighlightChanged,
           mouseCursor: mouseCursor,
+          enabledMouseCursor: enabledMouseCursor,
+          hoveredMouseCursor: hoveredMouseCursor,
+          disabledMouseCursor: disabledMouseCursor,
           textStyle: textStyle,
           fillColor: fillColor,
           focusColor: focusColor,
@@ -688,35 +891,37 @@ class NButtonFlat extends NButton {
           enableFeedback: enableFeedback,
           useMaterial: useMaterial,
           useCupertino: useCupertino,
+          useCupertinoPro: useCupertinoPro,
+          useFluent: useFluent,
+          useLinux: useLinux,
+          useWeb: useWeb,
           isFlat: true,
+          isGrey: false,
+          isFilled: false,
+          isTinted: false,
+          isIconOnly: isIconOnly,
+          corner: corner,
         );
-  //endregion
-
-  @override
-  ButtonStyle defaultStyleOf(
-    BuildContext context,
-  ) {
-    return super.defaultStyleOf(context).copyWith(
-        backgroundColor: null,
-        side: NButton.allOrNull(const BorderSide(color: Colors.transparent)));
-  }
+//endregion
 }
 
 class NButtonFlatWithIcon extends NButtonFlat {
   NButtonFlatWithIcon({
     Key? key,
-    required VoidCallback onPressed,
     required Icon icon,
     required String label,
+    required VoidCallback onPressed,
     VoidCallback? onLongPress,
     ValueChanged<bool>? onHover,
     ValueChanged<bool>? onFocusChange,
     ButtonStyle? style,
     FocusNode? focusNode,
     EdgeInsetsGeometry? padding,
-    double? pressedOpacity,
     ValueChanged<bool>? onHighlightChanged,
     MouseCursor? mouseCursor,
+    MouseCursor? enabledMouseCursor,
+    MouseCursor? hoveredMouseCursor,
+    MouseCursor? disabledMouseCursor,
     TextStyle? textStyle,
     Color? fillColor,
     Color? focusColor,
@@ -726,26 +931,34 @@ class NButtonFlatWithIcon extends NButtonFlat {
     Color disabledColor = CupertinoColors.quaternarySystemFill,
     bool autofocus = false,
     Clip clipBehavior = Clip.none,
+    double? minSize,
+    double? pressedOpacity,
+    BorderRadius? borderRadius,
     AlignmentGeometry alignment = Alignment.center,
-    double? minSize = kMinInteractiveDimensionCupertino,
-    BorderRadius? borderRadius = const BorderRadius.all(Radius.circular(8.0)),
-    double elevation = 2.0,
-    double hoverElevation = 4.0,
-    double focusElevation = 4.0,
-    double highlightElevation = 8.0,
-    double disabledElevation = 0.0,
+    double? elevation,
+    double? hoverElevation,
+    double? focusElevation,
+    double? highlightElevation,
+    double? disabledElevation,
     VisualDensity visualDensity = VisualDensity.standard,
-    BoxConstraints constraints =
-        const BoxConstraints(minWidth: 88.0, minHeight: 36.0),
-    ShapeBorder shape = const RoundedRectangleBorder(),
+    BoxConstraints? constraints,
+    OutlinedBorder? shape,
     Duration animationDuration = kThemeChangeDuration,
     MaterialTapTargetSize materialTapTargetSize = MaterialTapTargetSize.padded,
     bool enableFeedback = true,
     bool useMaterial = false,
     bool useCupertino = false,
+    bool useCupertinoPro = false,
+    bool useFluent = false,
+    bool useLinux = false,
+    bool useWeb = false,
+    bool isIconOnly = false,
+    CornerType corner = CornerType.circular,
+    IconPlacement? iconPlacement,
   }) : super(
           key: key,
-          child: _NButtonWithIconChild(icon: icon, label: Text(label)),
+          child: _NButtonWithIconChild(
+              icon: icon, label: Text(label), iconPlacement: iconPlacement),
           onPressed: onPressed,
           onLongPress: onLongPress,
           onHover: onHover,
@@ -755,6 +968,9 @@ class NButtonFlatWithIcon extends NButtonFlat {
           padding: padding,
           onHighlightChanged: onHighlightChanged,
           mouseCursor: mouseCursor,
+          enabledMouseCursor: enabledMouseCursor,
+          hoveredMouseCursor: hoveredMouseCursor,
+          disabledMouseCursor: disabledMouseCursor,
           textStyle: textStyle,
           fillColor: fillColor,
           focusColor: focusColor,
@@ -781,6 +997,12 @@ class NButtonFlatWithIcon extends NButtonFlat {
           enableFeedback: enableFeedback,
           useMaterial: useMaterial,
           useCupertino: useCupertino,
+          useCupertinoPro: useCupertinoPro,
+          useFluent: useFluent,
+          useLinux: useLinux,
+          useWeb: useWeb,
+          isIconOnly: isIconOnly,
+          corner: corner,
         );
 }
 
@@ -797,8 +1019,10 @@ class NButtonTinted extends NButton {
     FocusNode? focusNode,
     EdgeInsetsGeometry? padding,
     ValueChanged<bool>? onHighlightChanged,
-    double? pressedOpacity,
     MouseCursor? mouseCursor,
+    MouseCursor? enabledMouseCursor,
+    MouseCursor? hoveredMouseCursor,
+    MouseCursor? disabledMouseCursor,
     TextStyle? textStyle,
     Color? fillColor,
     Color? focusColor,
@@ -808,23 +1032,29 @@ class NButtonTinted extends NButton {
     Color disabledColor = CupertinoColors.quaternarySystemFill,
     bool autofocus = false,
     Clip clipBehavior = Clip.none,
-    double? minSize = kMinInteractiveDimensionCupertino,
-    BorderRadius? borderRadius = const BorderRadius.all(Radius.circular(8.0)),
+    double? minSize,
+    double? pressedOpacity,
+    BorderRadius? borderRadius,
     AlignmentGeometry alignment = Alignment.center,
-    double elevation = 2.0,
-    double hoverElevation = 4.0,
-    double focusElevation = 4.0,
-    double highlightElevation = 8.0,
-    double disabledElevation = 0.0,
+    double? elevation,
+    double? hoverElevation,
+    double? focusElevation,
+    double? highlightElevation,
+    double? disabledElevation,
     VisualDensity visualDensity = VisualDensity.standard,
-    BoxConstraints constraints =
-        const BoxConstraints(minWidth: 88.0, minHeight: 36.0),
-    ShapeBorder shape = const RoundedRectangleBorder(),
+    BoxConstraints? constraints,
+    OutlinedBorder? shape,
     Duration animationDuration = kThemeChangeDuration,
     MaterialTapTargetSize materialTapTargetSize = MaterialTapTargetSize.padded,
     bool enableFeedback = true,
     bool useMaterial = false,
     bool useCupertino = false,
+    bool useCupertinoPro = false,
+    bool useFluent = false,
+    bool useLinux = false,
+    bool useWeb = false,
+    bool isIconOnly = false,
+    CornerType corner = CornerType.circular,
   }) : super(
           key: key,
           child: child,
@@ -837,6 +1067,9 @@ class NButtonTinted extends NButton {
           padding: padding,
           onHighlightChanged: onHighlightChanged,
           mouseCursor: mouseCursor,
+          enabledMouseCursor: enabledMouseCursor,
+          hoveredMouseCursor: hoveredMouseCursor,
+          disabledMouseCursor: disabledMouseCursor,
           textStyle: textStyle,
           fillColor: fillColor,
           focusColor: focusColor,
@@ -863,39 +1096,37 @@ class NButtonTinted extends NButton {
           enableFeedback: enableFeedback,
           useMaterial: useMaterial,
           useCupertino: useCupertino,
+          useCupertinoPro: useCupertinoPro,
+          useFluent: useFluent,
+          useLinux: useLinux,
+          useWeb: useWeb,
+          isFlat: false,
+          isGrey: false,
+          isFilled: false,
           isTinted: true,
+          isIconOnly: isIconOnly,
+          corner: corner,
         );
-  //endregion
-
-  @override
-  ButtonStyle defaultStyleOf(
-    BuildContext context,
-  ) {
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
-
-    return super.defaultStyleOf(context).copyWith(
-        shadowColor: NButton.allOrNull(Colors.transparent),
-        backgroundColor:
-            NButton.allOrNull(colorScheme.primary.withOpacity(0.1)));
-  }
+//endregion
 }
 
 class NButtonTintedWithIcon extends NButtonTinted {
   NButtonTintedWithIcon({
     Key? key,
-    required VoidCallback onPressed,
     required Icon icon,
     required String label,
+    required VoidCallback onPressed,
     VoidCallback? onLongPress,
     ValueChanged<bool>? onHover,
     ValueChanged<bool>? onFocusChange,
     ButtonStyle? style,
     FocusNode? focusNode,
     EdgeInsetsGeometry? padding,
-    double? pressedOpacity,
     ValueChanged<bool>? onHighlightChanged,
     MouseCursor? mouseCursor,
+    MouseCursor? enabledMouseCursor,
+    MouseCursor? hoveredMouseCursor,
+    MouseCursor? disabledMouseCursor,
     TextStyle? textStyle,
     Color? fillColor,
     Color? focusColor,
@@ -905,26 +1136,34 @@ class NButtonTintedWithIcon extends NButtonTinted {
     Color disabledColor = CupertinoColors.quaternarySystemFill,
     bool autofocus = false,
     Clip clipBehavior = Clip.none,
+    double? minSize,
+    double? pressedOpacity,
+    BorderRadius? borderRadius,
     AlignmentGeometry alignment = Alignment.center,
-    double? minSize = kMinInteractiveDimensionCupertino,
-    BorderRadius? borderRadius = const BorderRadius.all(Radius.circular(8.0)),
-    double elevation = 2.0,
-    double hoverElevation = 4.0,
-    double focusElevation = 4.0,
-    double highlightElevation = 8.0,
-    double disabledElevation = 0.0,
+    double? elevation,
+    double? hoverElevation,
+    double? focusElevation,
+    double? highlightElevation,
+    double? disabledElevation,
     VisualDensity visualDensity = VisualDensity.standard,
-    BoxConstraints constraints =
-        const BoxConstraints(minWidth: 88.0, minHeight: 36.0),
-    ShapeBorder shape = const RoundedRectangleBorder(),
+    BoxConstraints? constraints,
+    OutlinedBorder? shape,
     Duration animationDuration = kThemeChangeDuration,
     MaterialTapTargetSize materialTapTargetSize = MaterialTapTargetSize.padded,
     bool enableFeedback = true,
     bool useMaterial = false,
     bool useCupertino = false,
+    bool useCupertinoPro = false,
+    bool useFluent = false,
+    bool useLinux = false,
+    bool useWeb = false,
+    bool isIconOnly = false,
+    CornerType corner = CornerType.circular,
+    IconPlacement? iconPlacement,
   }) : super(
           key: key,
-          child: _NButtonWithIconChild(icon: icon, label: Text(label)),
+          child: _NButtonWithIconChild(
+              icon: icon, label: Text(label), iconPlacement: iconPlacement),
           onPressed: onPressed,
           onLongPress: onLongPress,
           onHover: onHover,
@@ -934,6 +1173,9 @@ class NButtonTintedWithIcon extends NButtonTinted {
           padding: padding,
           onHighlightChanged: onHighlightChanged,
           mouseCursor: mouseCursor,
+          enabledMouseCursor: enabledMouseCursor,
+          hoveredMouseCursor: hoveredMouseCursor,
+          disabledMouseCursor: disabledMouseCursor,
           textStyle: textStyle,
           fillColor: fillColor,
           focusColor: focusColor,
@@ -960,6 +1202,12 @@ class NButtonTintedWithIcon extends NButtonTinted {
           enableFeedback: enableFeedback,
           useMaterial: useMaterial,
           useCupertino: useCupertino,
+          useCupertinoPro: useCupertinoPro,
+          useFluent: useFluent,
+          useLinux: useLinux,
+          useWeb: useWeb,
+          isIconOnly: isIconOnly,
+          corner: corner,
         );
 }
 
@@ -976,8 +1224,10 @@ class NButtonFilled extends NButton {
     FocusNode? focusNode,
     EdgeInsetsGeometry? padding,
     ValueChanged<bool>? onHighlightChanged,
-    double? pressedOpacity,
     MouseCursor? mouseCursor,
+    MouseCursor? enabledMouseCursor,
+    MouseCursor? hoveredMouseCursor,
+    MouseCursor? disabledMouseCursor,
     TextStyle? textStyle,
     Color? fillColor,
     Color? focusColor,
@@ -987,23 +1237,29 @@ class NButtonFilled extends NButton {
     Color disabledColor = CupertinoColors.quaternarySystemFill,
     bool autofocus = false,
     Clip clipBehavior = Clip.none,
-    double? minSize = kMinInteractiveDimensionCupertino,
-    BorderRadius? borderRadius = const BorderRadius.all(Radius.circular(8.0)),
+    double? minSize,
+    double? pressedOpacity,
+    BorderRadius? borderRadius,
     AlignmentGeometry alignment = Alignment.center,
-    double elevation = 2.0,
-    double hoverElevation = 4.0,
-    double focusElevation = 4.0,
-    double highlightElevation = 8.0,
-    double disabledElevation = 0.0,
+    double? elevation,
+    double? hoverElevation,
+    double? focusElevation,
+    double? highlightElevation,
+    double? disabledElevation,
     VisualDensity visualDensity = VisualDensity.standard,
-    BoxConstraints constraints =
-        const BoxConstraints(minWidth: 88.0, minHeight: 36.0),
-    ShapeBorder shape = const RoundedRectangleBorder(),
+    BoxConstraints? constraints,
+    OutlinedBorder? shape,
     Duration animationDuration = kThemeChangeDuration,
     MaterialTapTargetSize materialTapTargetSize = MaterialTapTargetSize.padded,
     bool enableFeedback = true,
     bool useMaterial = false,
     bool useCupertino = false,
+    bool useCupertinoPro = false,
+    bool useFluent = false,
+    bool useLinux = false,
+    bool useWeb = false,
+    bool isIconOnly = false,
+    CornerType corner = CornerType.circular,
   }) : super(
           key: key,
           child: child,
@@ -1016,6 +1272,9 @@ class NButtonFilled extends NButton {
           padding: padding,
           onHighlightChanged: onHighlightChanged,
           mouseCursor: mouseCursor,
+          enabledMouseCursor: enabledMouseCursor,
+          hoveredMouseCursor: hoveredMouseCursor,
+          disabledMouseCursor: disabledMouseCursor,
           textStyle: textStyle,
           fillColor: fillColor,
           focusColor: focusColor,
@@ -1042,39 +1301,37 @@ class NButtonFilled extends NButton {
           enableFeedback: enableFeedback,
           useMaterial: useMaterial,
           useCupertino: useCupertino,
+          useCupertinoPro: useCupertinoPro,
+          useFluent: useFluent,
+          useLinux: useLinux,
+          useWeb: useWeb,
+          isFlat: false,
+          isGrey: false,
           isFilled: true,
+          isTinted: false,
+          isIconOnly: isIconOnly,
+          corner: corner,
         );
-  //endregion
-
-  @override
-  ButtonStyle defaultStyleOf(
-    BuildContext context,
-  ) {
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
-
-    return super.defaultStyleOf(context).copyWith(
-        textStyle: NButton.allOrNull(TextStyle(color: colorScheme.onPrimary)),
-        foregroundColor: NButton.allOrNull(colorScheme.onPrimary),
-        backgroundColor: NButton.allOrNull(colorScheme.primary));
-  }
+//endregion
 }
 
 class NButtonFilledWithIcon extends NButtonFilled {
   NButtonFilledWithIcon({
     Key? key,
-    required VoidCallback onPressed,
     required Icon icon,
     required String label,
+    required VoidCallback onPressed,
     VoidCallback? onLongPress,
     ValueChanged<bool>? onHover,
     ValueChanged<bool>? onFocusChange,
     ButtonStyle? style,
     FocusNode? focusNode,
     EdgeInsetsGeometry? padding,
-    double? pressedOpacity,
     ValueChanged<bool>? onHighlightChanged,
     MouseCursor? mouseCursor,
+    MouseCursor? enabledMouseCursor,
+    MouseCursor? hoveredMouseCursor,
+    MouseCursor? disabledMouseCursor,
     TextStyle? textStyle,
     Color? fillColor,
     Color? focusColor,
@@ -1084,26 +1341,34 @@ class NButtonFilledWithIcon extends NButtonFilled {
     Color disabledColor = CupertinoColors.quaternarySystemFill,
     bool autofocus = false,
     Clip clipBehavior = Clip.none,
+    double? minSize,
+    double? pressedOpacity,
+    BorderRadius? borderRadius,
     AlignmentGeometry alignment = Alignment.center,
-    double? minSize = kMinInteractiveDimensionCupertino,
-    BorderRadius? borderRadius = const BorderRadius.all(Radius.circular(8.0)),
-    double elevation = 2.0,
-    double hoverElevation = 4.0,
-    double focusElevation = 4.0,
-    double highlightElevation = 8.0,
-    double disabledElevation = 0.0,
+    double? elevation,
+    double? hoverElevation,
+    double? focusElevation,
+    double? highlightElevation,
+    double? disabledElevation,
     VisualDensity visualDensity = VisualDensity.standard,
-    BoxConstraints constraints =
-        const BoxConstraints(minWidth: 88.0, minHeight: 36.0),
-    ShapeBorder shape = const RoundedRectangleBorder(),
+    BoxConstraints? constraints,
+    OutlinedBorder? shape,
     Duration animationDuration = kThemeChangeDuration,
     MaterialTapTargetSize materialTapTargetSize = MaterialTapTargetSize.padded,
     bool enableFeedback = true,
     bool useMaterial = false,
     bool useCupertino = false,
+    bool useCupertinoPro = false,
+    bool useFluent = false,
+    bool useLinux = false,
+    bool useWeb = false,
+    bool isIconOnly = false,
+    CornerType corner = CornerType.circular,
+    IconPlacement? iconPlacement,
   }) : super(
           key: key,
-          child: _NButtonWithIconChild(icon: icon, label: Text(label)),
+          child: _NButtonWithIconChild(
+              icon: icon, label: Text(label), iconPlacement: iconPlacement),
           onPressed: onPressed,
           onLongPress: onLongPress,
           onHover: onHover,
@@ -1113,6 +1378,9 @@ class NButtonFilledWithIcon extends NButtonFilled {
           padding: padding,
           onHighlightChanged: onHighlightChanged,
           mouseCursor: mouseCursor,
+          enabledMouseCursor: enabledMouseCursor,
+          hoveredMouseCursor: hoveredMouseCursor,
+          disabledMouseCursor: disabledMouseCursor,
           textStyle: textStyle,
           fillColor: fillColor,
           focusColor: focusColor,
@@ -1139,36 +1407,496 @@ class NButtonFilledWithIcon extends NButtonFilled {
           enableFeedback: enableFeedback,
           useMaterial: useMaterial,
           useCupertino: useCupertino,
+          useCupertinoPro: useCupertinoPro,
+          useFluent: useFluent,
+          useLinux: useLinux,
+          useWeb: useWeb,
+          isIconOnly: isIconOnly,
+          corner: corner,
+        );
+}
+
+class NButtonGrey extends NButton {
+  //region constructor
+  const NButtonGrey({
+    Key? key,
+    required Widget child,
+    required VoidCallback onPressed,
+    VoidCallback? onLongPress,
+    ValueChanged<bool>? onHover,
+    ValueChanged<bool>? onFocusChange,
+    ButtonStyle? style,
+    FocusNode? focusNode,
+    EdgeInsetsGeometry? padding,
+    ValueChanged<bool>? onHighlightChanged,
+    MouseCursor? mouseCursor,
+    MouseCursor? enabledMouseCursor,
+    MouseCursor? hoveredMouseCursor,
+    MouseCursor? disabledMouseCursor,
+    TextStyle? textStyle,
+    Color? fillColor,
+    Color? focusColor,
+    Color? hoverColor,
+    Color? highlightColor,
+    Color? splashColor,
+    Color disabledColor = CupertinoColors.quaternarySystemFill,
+    bool autofocus = false,
+    Clip clipBehavior = Clip.none,
+    double? minSize,
+    double? pressedOpacity,
+    BorderRadius? borderRadius,
+    AlignmentGeometry alignment = Alignment.center,
+    double? elevation,
+    double? hoverElevation,
+    double? focusElevation,
+    double? highlightElevation,
+    double? disabledElevation,
+    VisualDensity visualDensity = VisualDensity.standard,
+    BoxConstraints? constraints,
+    OutlinedBorder? shape,
+    Duration animationDuration = kThemeChangeDuration,
+    MaterialTapTargetSize materialTapTargetSize = MaterialTapTargetSize.padded,
+    bool enableFeedback = true,
+    bool useMaterial = false,
+    bool useCupertino = false,
+    bool useCupertinoPro = false,
+    bool useFluent = false,
+    bool useLinux = false,
+    bool useWeb = false,
+    bool isIconOnly = false,
+    CornerType corner = CornerType.circular,
+  }) : super(
+          key: key,
+          child: child,
+          onPressed: onPressed,
+          onLongPress: onLongPress,
+          onHover: onHover,
+          onFocusChange: onFocusChange,
+          style: style,
+          focusNode: focusNode,
+          padding: padding,
+          onHighlightChanged: onHighlightChanged,
+          mouseCursor: mouseCursor,
+          enabledMouseCursor: enabledMouseCursor,
+          hoveredMouseCursor: hoveredMouseCursor,
+          disabledMouseCursor: disabledMouseCursor,
+          textStyle: textStyle,
+          fillColor: fillColor,
+          focusColor: focusColor,
+          hoverColor: hoverColor,
+          highlightColor: highlightColor,
+          splashColor: splashColor,
+          disabledColor: disabledColor,
+          autofocus: autofocus,
+          clipBehavior: clipBehavior,
+          minSize: minSize,
+          pressedOpacity: pressedOpacity,
+          borderRadius: borderRadius,
+          alignment: alignment,
+          elevation: elevation,
+          hoverElevation: hoverElevation,
+          focusElevation: focusElevation,
+          highlightElevation: highlightElevation,
+          disabledElevation: disabledElevation,
+          visualDensity: visualDensity,
+          constraints: constraints,
+          shape: shape,
+          animationDuration: animationDuration,
+          materialTapTargetSize: materialTapTargetSize,
+          enableFeedback: enableFeedback,
+          useMaterial: useMaterial,
+          useCupertino: useCupertino,
+          useCupertinoPro: useCupertinoPro,
+          useFluent: useFluent,
+          useLinux: useLinux,
+          useWeb: useWeb,
+          isFlat: false,
+          isGrey: true,
+          isFilled: false,
+          isTinted: false,
+          isIconOnly: isIconOnly,
+          corner: corner,
+        );
+//endregion
+}
+
+class NButtonGreyWithIcon extends NButtonGrey {
+  NButtonGreyWithIcon({
+    Key? key,
+    required Icon icon,
+    required String label,
+    required VoidCallback onPressed,
+    VoidCallback? onLongPress,
+    ValueChanged<bool>? onHover,
+    ValueChanged<bool>? onFocusChange,
+    ButtonStyle? style,
+    FocusNode? focusNode,
+    EdgeInsetsGeometry? padding,
+    ValueChanged<bool>? onHighlightChanged,
+    MouseCursor? mouseCursor,
+    MouseCursor? enabledMouseCursor,
+    MouseCursor? hoveredMouseCursor,
+    MouseCursor? disabledMouseCursor,
+    TextStyle? textStyle,
+    Color? fillColor,
+    Color? focusColor,
+    Color? hoverColor,
+    Color? highlightColor,
+    Color? splashColor,
+    Color disabledColor = CupertinoColors.quaternarySystemFill,
+    bool autofocus = false,
+    Clip clipBehavior = Clip.none,
+    double? minSize,
+    double? pressedOpacity,
+    BorderRadius? borderRadius,
+    AlignmentGeometry alignment = Alignment.center,
+    double? elevation,
+    double? hoverElevation,
+    double? focusElevation,
+    double? highlightElevation,
+    double? disabledElevation,
+    VisualDensity visualDensity = VisualDensity.standard,
+    BoxConstraints? constraints,
+    OutlinedBorder? shape,
+    Duration animationDuration = kThemeChangeDuration,
+    MaterialTapTargetSize materialTapTargetSize = MaterialTapTargetSize.padded,
+    bool enableFeedback = true,
+    bool useMaterial = false,
+    bool useCupertino = false,
+    bool useCupertinoPro = false,
+    bool useFluent = false,
+    bool useLinux = false,
+    bool useWeb = false,
+    bool isIconOnly = false,
+    CornerType corner = CornerType.circular,
+    IconPlacement? iconPlacement,
+  }) : super(
+          key: key,
+          child: _NButtonWithIconChild(
+              icon: icon, label: Text(label), iconPlacement: iconPlacement),
+          onPressed: onPressed,
+          onLongPress: onLongPress,
+          onHover: onHover,
+          onFocusChange: onFocusChange,
+          style: style,
+          focusNode: focusNode,
+          padding: padding,
+          onHighlightChanged: onHighlightChanged,
+          mouseCursor: mouseCursor,
+          enabledMouseCursor: enabledMouseCursor,
+          hoveredMouseCursor: hoveredMouseCursor,
+          disabledMouseCursor: disabledMouseCursor,
+          textStyle: textStyle,
+          fillColor: fillColor,
+          focusColor: focusColor,
+          hoverColor: hoverColor,
+          highlightColor: highlightColor,
+          splashColor: splashColor,
+          disabledColor: disabledColor,
+          autofocus: autofocus,
+          clipBehavior: clipBehavior,
+          minSize: minSize,
+          pressedOpacity: pressedOpacity,
+          borderRadius: borderRadius,
+          alignment: alignment,
+          elevation: elevation,
+          hoverElevation: hoverElevation,
+          focusElevation: focusElevation,
+          highlightElevation: highlightElevation,
+          disabledElevation: disabledElevation,
+          visualDensity: visualDensity,
+          constraints: constraints,
+          shape: shape,
+          animationDuration: animationDuration,
+          materialTapTargetSize: materialTapTargetSize,
+          enableFeedback: enableFeedback,
+          useMaterial: useMaterial,
+          useCupertino: useCupertino,
+          useCupertinoPro: useCupertinoPro,
+          useFluent: useFluent,
+          useLinux: useLinux,
+          useWeb: useWeb,
+          isIconOnly: isIconOnly,
+          corner: corner,
         );
 }
 
 class _NButtonWithIconChild extends StatelessWidget {
-  const _NButtonWithIconChild({
-    Key? key,
-    required this.label,
-    required this.icon,
-  }) : super(key: key);
+  const _NButtonWithIconChild(
+      {Key? key,
+      required this.label,
+      required this.icon,
+      this.iconPlacement = IconPlacement.left})
+      : super(key: key);
 
   final Widget label;
   final Widget icon;
+  final IconPlacement? iconPlacement;
 
   @override
   Widget build(BuildContext context) {
     final double scale = MediaQuery.maybeOf(context)?.textScaleFactor ?? 1;
     final double gap =
         scale <= 1 ? 8 : lerpDouble(8, 4, math.min(scale - 1, 1))!;
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[icon, SizedBox(width: gap), Flexible(child: label)],
-    );
+    return (iconPlacement == IconPlacement.left)
+        ? Row(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              icon,
+              SizedBox(width: gap),
+              Flexible(child: label),
+            ],
+          )
+        : (iconPlacement == IconPlacement.right)
+            ? Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Flexible(child: label),
+                  SizedBox(width: gap),
+                  icon,
+                ],
+              )
+            : (iconPlacement == IconPlacement.top)
+                ? Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      icon,
+                      SizedBox(width: gap),
+                      Flexible(child: label),
+                    ],
+                  )
+                : Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Flexible(child: label),
+                      SizedBox(width: gap),
+                      icon,
+                    ],
+                  );
   }
 }
 
-/*
-              __________________________________________
-    This Set  ||  flat   |NButton|tinted   |  filled    ||
-              __________________________________________
-    Cupertino || plain  | grey  | tinted  | filled     ||
-    Material  || text   | toggle| outlined| contained ||
-              ==========================================
- */
+enum IconPlacement { top, right, bottom, left }
+
+enum ButtonKind { flat, grey, outlined, tinted, filled }
+
+enum CornerType { square, beveled, rounded, circular }
+
+@immutable
+class _NButtonDefaultBackground extends MaterialStateProperty<Color?>
+    with Diagnosticable {
+  _NButtonDefaultBackground(this.fillColor, this.surfaceColor, this.textColor,
+      this.buttonType, this.operatingSystem);
+
+  final Color? fillColor;
+  final Color? surfaceColor;
+  final Color? textColor;
+  final ButtonKind buttonType;
+  final OS operatingSystem;
+
+  @override
+  Color? resolve(Set<MaterialState> states) {
+    if (states.contains(MaterialState.disabled)) {
+      return textColor?.withOpacity(0.12);
+    }
+    Color? btnColor;
+    switch (buttonType) {
+      case ButtonKind.outlined:
+        btnColor = null;
+        break;
+      case ButtonKind.grey:
+        btnColor = surfaceColor?.withOpacity(0.1);
+        break;
+      case ButtonKind.flat:
+        btnColor = null;
+        break;
+      case ButtonKind.tinted:
+        btnColor = fillColor?.withOpacity(0.1);
+        break;
+      case ButtonKind.filled:
+        btnColor = fillColor;
+        break;
+    }
+    return btnColor;
+  }
+}
+
+@immutable
+class _NButtonDefaultForeground extends MaterialStateProperty<Color?>
+    with Diagnosticable {
+  _NButtonDefaultForeground(this.primary, this.onPrimary, this.onSurface,
+      this.buttonType, this.operatingSystem);
+
+  final Color? primary;
+  final Color? onPrimary;
+  final Color? onSurface;
+  final ButtonKind buttonType;
+  final OS operatingSystem;
+
+  @override
+  Color? resolve(Set<MaterialState> states) {
+    if (states.contains(MaterialState.disabled)) {
+      return onSurface?.withOpacity(0.38);
+    }
+    return (buttonType == ButtonKind.filled) ? onPrimary : primary;
+  }
+}
+
+@immutable
+class _NButtonDefaultOverlay extends MaterialStateProperty<Color?>
+    with Diagnosticable {
+  _NButtonDefaultOverlay(this.overlayColor, this.primary, this.onPrimary,
+      this.buttonType, this.operatingSystem);
+
+  final Color? overlayColor;
+  final Color? primary;
+  final Color? onPrimary;
+  final ButtonKind buttonType;
+  final OS operatingSystem;
+
+  @override
+  Color? resolve(Set<MaterialState> states) {
+    if (states.contains(MaterialState.hovered)) {
+      return onPrimary?.withOpacity(0.08);
+    }
+    if (states.contains(MaterialState.focused) ||
+        states.contains(MaterialState.pressed)) {
+      return onPrimary?.withOpacity(0.24);
+    }
+    return overlayColor;
+  }
+}
+
+@immutable
+class _NButtonDefaultElevation extends MaterialStateProperty<double>
+    with Diagnosticable {
+  _NButtonDefaultElevation(this.buttonType, this.operatingSystem);
+
+  final double elevation = 2.0;
+  final ButtonKind buttonType;
+  final OS operatingSystem;
+
+  @override
+  double resolve(Set<MaterialState> states) {
+    if (buttonType == ButtonKind.flat ||
+        buttonType == ButtonKind.tinted ||
+        buttonType == ButtonKind.grey ||
+        operatingSystem == OS.ios ||
+        operatingSystem == OS.mac) {
+      return 0.0;
+    }
+    if (states.contains(MaterialState.disabled)) {
+      return 0.0;
+    }
+    if (states.contains(MaterialState.hovered)) {
+      return elevation + 2.0;
+    }
+    if (states.contains(MaterialState.focused)) {
+      return elevation + 2.0;
+    }
+    if (states.contains(MaterialState.pressed)) {
+      return elevation + 6.0;
+    }
+    return elevation;
+  }
+}
+
+@immutable
+class _NButtonDefaultMouseCursor extends MaterialStateProperty<MouseCursor?>
+    with Diagnosticable {
+  _NButtonDefaultMouseCursor(this.mouseCursor, this.enabledCursor,
+      this.disabledCursor, this.hoveredCursor, this.operatingSystem);
+
+  final MouseCursor? mouseCursor;
+  final MouseCursor? enabledCursor;
+  final MouseCursor? disabledCursor;
+  final MouseCursor? hoveredCursor;
+  final OS operatingSystem;
+
+  @override
+  MouseCursor resolve(Set<MaterialState> states) => (mouseCursor == null)
+      ? (states.contains(MaterialState.disabled))
+          ? (disabledCursor ?? SystemMouseCursors.forbidden)
+          : (states.contains(MaterialState.hovered))
+              ? (hoveredCursor ?? SystemMouseCursors.basic)
+              : (enabledCursor ?? SystemMouseCursors.click)
+      : mouseCursor!;
+}
+
+OutlinedBorder _nButtonDefaultShape(BorderSide? borderSide, OS operatingSystem,
+    {CornerType style = CornerType.rounded, double? cornerSize}) {
+  if (cornerSize != null) {
+    return (style == CornerType.beveled)
+        ? BeveledRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(cornerSize)),
+            side: borderSide ?? const BorderSide())
+        : RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(cornerSize)),
+            side: borderSide ?? const BorderSide());
+  }
+  double _size = 0;
+  switch (operatingSystem) {
+    case OS.android:
+      _size = (style == CornerType.beveled)
+          ? 6
+          : (style == CornerType.rounded)
+              ? 4
+              : (style == CornerType.circular)
+                  ? 256
+                  : 0;
+      break;
+    case OS.ios:
+      _size = (style == CornerType.beveled)
+          ? 8
+          : (style == CornerType.rounded)
+              ? 8
+              : (style == CornerType.circular)
+                  ? 256
+                  : 0;
+      break;
+    case OS.mac:
+      _size = (style == CornerType.beveled)
+          ? 8
+          : (style == CornerType.rounded)
+              ? 16
+              : (style == CornerType.circular)
+                  ? 256
+                  : 0;
+      break;
+    case OS.linux:
+      _size = (style == CornerType.beveled)
+          ? 8
+          : (style == CornerType.rounded)
+              ? 256
+              : (style == CornerType.circular)
+                  ? 256
+                  : 0;
+      break;
+    case OS.windows:
+      _size = (style == CornerType.beveled)
+          ? 14
+          : (style == CornerType.rounded)
+              ? 4
+              : (style == CornerType.circular)
+                  ? 256
+                  : 0;
+      break;
+    default:
+      _size = (style == CornerType.beveled)
+          ? 6
+          : (style == CornerType.rounded)
+              ? 24
+              : (style == CornerType.circular)
+                  ? 256
+                  : 0;
+      break;
+  }
+
+  return (style == CornerType.beveled)
+      ? BeveledRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(_size)),
+          side: borderSide ?? const BorderSide())
+      : RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(_size)),
+          side: borderSide ?? const BorderSide());
+}

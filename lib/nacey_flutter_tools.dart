@@ -14,3 +14,5 @@ export 'extensions/extensions.dart';
 export 'theme/themes.dart' show ThemeDataExtension, CustomThemeFields;
 export 'widgets/form_inputs/form_inputs.dart';
 export 'widgets/widgets.dart';
+
+enum OS { web, android, ios, linux, mac, windows }
