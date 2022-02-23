@@ -4,6 +4,7 @@ const TextStyle txtRoboto = TextStyle(fontFamily: 'Roboto');
 const TextStyle txtFluent = TextStyle(fontFamily: 'Segoe');
 const TextStyle txtMacOS = TextStyle(fontFamily: 'SanFrancisco-Pro');
 const TextStyle txtIos = TextStyle(fontFamily: 'SanFrancisco-Compact');
+const TextStyle textLinux = TextStyle(fontFamily: 'Cantarell');
 
 class RobotoTxtTheme extends TextTheme {
   @override
@@ -311,4 +312,88 @@ class CupertinoCompactTheme extends TextTheme {
   @override
   TextStyle? get overline =>
       super.overline?.copyWith(fontFamily: 'SanFrancisco-Compact');
+}
+
+class CantarellTheme extends TextTheme {
+  @override
+  TextStyle? get displayLarge =>
+      super.displayLarge?.copyWith(fontFamily: 'Cantarell');
+  @override
+  TextStyle? get displayMedium =>
+      super.displayMedium?.copyWith(fontFamily: 'Cantarell');
+  @override
+  TextStyle? get displaySmall =>
+      super.displaySmall?.copyWith(fontFamily: 'Cantarell');
+  @override
+  TextStyle? get headlineLarge =>
+      super.headlineLarge?.copyWith(fontFamily: 'Cantarell');
+  @override
+  TextStyle? get headlineMedium =>
+      super.headlineMedium?.copyWith(fontFamily: 'Cantarell');
+  @override
+  TextStyle? get headlineSmall =>
+      super.headlineSmall?.copyWith(fontFamily: 'Cantarell');
+  @override
+  TextStyle? get titleLarge =>
+      super.titleLarge?.copyWith(fontFamily: 'Cantarell');
+  @override
+  TextStyle? get titleMedium =>
+      super.titleMedium?.copyWith(fontFamily: 'Cantarell');
+  @override
+  TextStyle? get titleSmall =>
+      super.titleSmall?.copyWith(fontFamily: 'Cantarell');
+  @override
+  TextStyle? get bodyLarge =>
+      super.bodyLarge?.copyWith(fontFamily: 'Cantarell');
+  @override
+  TextStyle? get bodyMedium =>
+      super.bodyMedium?.copyWith(fontFamily: 'Cantarell');
+  @override
+  TextStyle? get bodySmall =>
+      super.bodySmall?.copyWith(fontFamily: 'Cantarell');
+  @override
+  TextStyle? get labelLarge =>
+      super.labelLarge?.copyWith(fontFamily: 'Cantarell');
+  @override
+  TextStyle? get labelMedium =>
+      super.labelMedium?.copyWith(fontFamily: 'Cantarell');
+  @override
+  TextStyle? get labelSmall =>
+      super.labelSmall?.copyWith(fontFamily: 'Cantarell');
+  @override
+  TextStyle? get headline1 =>
+      super.headline1?.copyWith(fontFamily: 'Cantarell');
+  @override
+  TextStyle? get headline2 =>
+      super.headline2?.copyWith(fontFamily: 'Cantarell');
+  @override
+  TextStyle? get headline3 =>
+      super.headline3?.copyWith(fontFamily: 'Cantarell');
+  @override
+  TextStyle? get headline4 =>
+      super.headline4?.copyWith(fontFamily: 'Cantarell');
+  @override
+  TextStyle? get headline5 =>
+      super.headline5?.copyWith(fontFamily: 'Cantarell');
+  @override
+  TextStyle? get headline6 =>
+      super.headline6?.copyWith(fontFamily: 'Cantarell');
+  @override
+  TextStyle? get subtitle1 =>
+      super.subtitle1?.copyWith(fontFamily: 'Cantarell');
+  @override
+  TextStyle? get subtitle2 =>
+      super.subtitle2?.copyWith(fontFamily: 'Cantarell');
+  @override
+  TextStyle? get bodyText1 =>
+      super.bodyText1?.copyWith(fontFamily: 'Cantarell');
+  @override
+  TextStyle? get bodyText2 =>
+      super.bodyText2?.copyWith(fontFamily: 'Cantarell');
+  @override
+  TextStyle? get caption => super.caption?.copyWith(fontFamily: 'Cantarell');
+  @override
+  TextStyle? get button => super.button?.copyWith(fontFamily: 'Cantarell');
+  @override
+  TextStyle? get overline => super.overline?.copyWith(fontFamily: 'Cantarell');
 }
