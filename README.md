@@ -36,7 +36,7 @@ If something is wrong, please msg with the issue and a reference link to the cor
 
 ## Features
 
-### [Buttons](./lib/widgets/README.md)
+### [Buttons](./lib/widgets)
 TODO: List what your package can do. Maybe include images, gifs, or videos.
 
 ## Getting started
