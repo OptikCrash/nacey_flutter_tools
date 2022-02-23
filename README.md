@@ -28,15 +28,18 @@ If something is wrong, please msg with the issue and a reference link to the cor
 [Material Design](https://material.io/)<img src="./assets/icons/material_logo.png" alt="material design logo" style="margin-left:16px;height:44px;" />
 #### Windows<img src="./assets/icons/windows_color.png" alt="windows logo" style="margin-left:16px;height:44px;" />
 [Fluent Design System](https://www.microsoft.com/design/fluent/#/) 
-#### <span style="color:red;">Linux</span>
+#### <span style="color:red;">Linux</span><img src="./assets/icons/linux_logo.png" alt="linux logo" style="margin-left:16px;height:44px;" />
 <span style="color:orange;">???</span>
-#### <span style="color:red;">Web</span>
+#### <span style="color:red;">Web</span><img src="./assets/icons/www_logo.png" alt="world wide web logo" style="margin-left:16px;height:44px;" />
 <span style="color:orange;">???</span>
 
 
 ## Features
 
-### [Buttons](./lib/widgets)
+### [Widgets](./lib/widgets)
+#### [Buttons](./lib/widgets/buttons)
+
+#### [Form Field Inputs](./lib/widgets/form_inputs)
 TODO: List what your package can do. Maybe include images, gifs, or videos.
 
 ## Getting started

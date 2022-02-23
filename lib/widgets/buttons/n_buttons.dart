@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../nacey_flutter_tools.dart';
+import '../../nacey_flutter_tools.dart';
 
 class NButton extends ButtonStyleButton {
   //region constructors
