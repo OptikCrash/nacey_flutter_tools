@@ -495,11 +495,11 @@ class NButton extends ButtonStyleButton {
                     ? ButtonKind.grey
                     : ButtonKind.outlined;
 
-    final scaledPadding = (useMaterial)
+    final scaledPadding = (useMaterial || useFluent)
         ? scaledPaddingMaterial
-        : (useCupertino)
+        : (useCupertino || useCupertinoPro)
             ? scaledPaddingCupertino
-            : Platform.isIOS
+            : (Platform.isIOS || Platform.isMacOS)
                 ? scaledPaddingCupertino
                 : scaledPaddingMaterial;
 
@@ -536,40 +536,35 @@ class NButton extends ButtonStyleButton {
     Color foreground = (_buttonKind == ButtonKind.filled)
         ? colorScheme.onPrimary
         : colorScheme.primary;
-    double borderWidth = (_buttonKind == ButtonKind.flat ||
-            _buttonKind == ButtonKind.tinted &&
-                (_operatingSystem == OS.ios ||
-                    _operatingSystem == OS.mac ||
-                    useCupertino ||
-                    useCupertinoPro))
+    double borderWidth = (_buttonKind == ButtonKind.flat)
         ? 0
-        : (useMaterial && _buttonKind == ButtonKind.outlined)
-            ? 1.25
-            : (useFluent && _buttonKind != ButtonKind.flat)
-                ? 1
-                : 0.5;
-    BorderStyle borderStyle = (_buttonKind == ButtonKind.flat ||
-            _buttonKind == ButtonKind.filled &&
-                _operatingSystem == OS.android ||
-            _buttonKind == ButtonKind.tinted &&
-                (_operatingSystem == OS.ios ||
-                    _operatingSystem == OS.mac ||
-                    useCupertino ||
-                    useCupertinoPro))
-        ? BorderStyle.none
-        : BorderStyle.solid;
-    Color borderColor = (_buttonKind == ButtonKind.flat ||
-            useCupertino ||
-            useCupertinoPro ||
-            _operatingSystem == OS.ios ||
-            _operatingSystem == OS.mac)
-        ? colorScheme.surface
-        : (useMaterial && _buttonKind == ButtonKind.outlined)
-            ? colorScheme.primary
-            : (_buttonKind == ButtonKind.outlined ||
-                    _buttonKind == ButtonKind.filled)
-                ? colorScheme.onSurface
-                : colorScheme.primary;
+        : ((useFluent || _operatingSystem == OS.windows) &&
+                _buttonKind != ButtonKind.flat)
+            ? 1.5
+            : ((useMaterial || _operatingSystem == OS.android) &&
+                    _buttonKind != ButtonKind.flat)
+                ? 1.25
+                : 1.75;
+    BorderStyle borderStyle = (_buttonKind == ButtonKind.outlined ||
+            ((!useCupertino &&
+                    !useCupertinoPro &&
+                    _operatingSystem != OS.ios &&
+                    _operatingSystem != OS.mac) &&
+                _buttonKind != ButtonKind.flat))
+        ? BorderStyle.solid
+        : BorderStyle.none;
+    Color borderColor = (useMaterial && _buttonKind == ButtonKind.outlined) ||
+            (_operatingSystem == OS.android &&
+                _buttonKind == ButtonKind.outlined)
+        ? colorScheme.primary
+        : (_buttonKind == ButtonKind.outlined ||
+                (_buttonKind == ButtonKind.filled &&
+                    (_operatingSystem != OS.android && !useMaterial)) ||
+                (useMaterial && _buttonKind == ButtonKind.grey) ||
+                (_operatingSystem == OS.android &&
+                    _buttonKind == ButtonKind.grey))
+            ? colorScheme.onSurface.withOpacity(0.25)
+            : colorScheme.primary;
 
     BorderSide _side = BorderSide(
       color: borderColor,
@@ -578,42 +573,42 @@ class NButton extends ButtonStyleButton {
     );
 
     final Size _minSize = Size(
-        (useFluent)
+        (useFluent || _operatingSystem == OS.windows)
             ? 120
-            : (useMaterial)
+            : (useMaterial || _operatingSystem == OS.android)
                 ? 100
-                : (useCupertino)
+                : (useCupertino || _operatingSystem == OS.ios)
                     ? 90
-                    : (useCupertinoPro)
+                    : (useCupertinoPro || _operatingSystem == OS.mac)
                         ? 100
-                        : (useLinux)
+                        : (useLinux || _operatingSystem == OS.linux)
                             ? 100
                             : (useWeb)
                                 ? 120
                                 : 36,
-        (useFluent)
+        (useFluent || _operatingSystem == OS.windows)
             ? 32
-            : (useMaterial)
+            : (useMaterial || _operatingSystem == OS.android)
                 ? 36
-                : (useCupertino)
+                : (useCupertino || _operatingSystem == OS.ios)
                     ? 44
-                    : (useCupertinoPro)
+                    : (useCupertinoPro || _operatingSystem == OS.mac)
                         ? 46
-                        : (useLinux)
+                        : (useLinux || _operatingSystem == OS.linux)
                             ? 30
                             : (useWeb)
                                 ? 48
                                 : 36);
 
-    final double _fontSize = (useMaterial)
+    final double _fontSize = (useMaterial || _operatingSystem == OS.android)
         ? 14
-        : (useCupertino)
+        : (useCupertino || _operatingSystem == OS.ios)
             ? 16
-            : (useCupertinoPro)
+            : (useCupertinoPro || _operatingSystem == OS.mac)
                 ? 16
-                : (useFluent)
+                : (useFluent || _operatingSystem == OS.windows)
                     ? 14
-                    : (useLinux)
+                    : (useLinux || _operatingSystem == OS.linux)
                         ? 16
                         : (useWeb)
                             ? 24
@@ -1676,12 +1671,28 @@ class _NButtonWithIconChild extends StatelessWidget {
   }
 }
 
+/*
+              __________________________________________
+    This Set  ||  flat   | tinted | NButton  |  filled    ||
+              __________________________________________
+    Cupertino || plain  | tinted | outlined | filled     ||grey
+    Material  || text   | toggle | outlined | contained ||
+              ==========================================
+ */
 enum IconPlacement { top, right, bottom, left }
 
 enum ButtonKind { flat, grey, outlined, tinted, filled }
 
 enum CornerType { square, beveled, rounded, circular }
 
+// hovered
+// focused
+// pressed
+// dragged
+// selected
+// scrolledUnder
+// disabled
+// error
 @immutable
 class _NButtonDefaultBackground extends MaterialStateProperty<Color?>
     with Diagnosticable {
