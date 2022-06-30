@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:nacey_flutter_tools/theme/wdfw/wdfw_colors.dart';
 
 import 'themes.dart';
@@ -49,25 +48,26 @@ class WDFWTheme extends Theme {
         textTheme: TextTheme(
           headline1: const TextStyle(color: wdfwGreyCool50),
           headline2: ThemeData.light().textTheme.headline2,
-          headline3:
-              GoogleFonts.getFont('Montserrat Alternates', color: wdfwGreen300),
-          headline4: GoogleFonts.getFont(
-            'Oswald',
-            textStyle: const TextStyle(
-              color: wdfwGreen300,
-            ),
-          ),
-          headline5: GoogleFonts.getFont('Oswald',
-              textStyle: const TextStyle(color: wdfwGreen500)),
-          headline6: GoogleFonts.getFont('Montserrat Alternates',
-              textStyle: const TextStyle(color: wdfwGreyCool700)),
+          headline3: ThemeData.light().textTheme.headline3?.copyWith(
+              fontFamily: 'Montserrat Alternates', color: wdfwGreen300),
+          headline4: ThemeData.light()
+              .textTheme
+              .headline4
+              ?.copyWith(fontFamily: 'Oswald', color: wdfwGreen300),
+          headline5: ThemeData.light()
+              .textTheme
+              .headline5
+              ?.copyWith(fontFamily: 'Oswald', color: wdfwGreen500),
+          headline6: ThemeData.light().textTheme.headline6?.copyWith(
+              fontFamily: 'Montserrat Alternates', color: wdfwGreyCool700),
           subtitle1: ThemeData.light().textTheme.subtitle1,
           subtitle2: ThemeData.light().textTheme.subtitle2,
-          bodyText1: GoogleFonts.getFont('Montserrat',
-              textStyle: const TextStyle(color: wdfwGreyCool900)),
-          bodyText2: GoogleFonts.getFont('Montserrat',
-              textStyle:
-                  const TextStyle(color: wdfwGreyCool900, fontSize: 16.0)),
+          bodyText1: ThemeData.light()
+              .textTheme
+              .bodyText1
+              ?.copyWith(fontFamily: 'Montserrat', color: wdfwGreyCool900),
+          bodyText2: ThemeData.light().textTheme.bodyText2?.copyWith(
+              fontFamily: 'Montserrat', color: wdfwGreyCool900, fontSize: 16.0),
           caption: ThemeData.light().textTheme.caption,
           button: ThemeData.light().textTheme.button,
           overline: ThemeData.light().textTheme.overline,
@@ -248,25 +248,26 @@ class WDFWTheme extends Theme {
         textTheme: TextTheme(
           headline1: const TextStyle(color: wdfwGreyCool50),
           headline2: ThemeData.dark().textTheme.headline2,
-          headline3:
-              GoogleFonts.getFont('Montserrat Alternates', color: wdfwGreen300),
-          headline4: GoogleFonts.getFont(
-            'Oswald',
-            textStyle: const TextStyle(
-              color: wdfwGreen300,
-            ),
-          ),
-          headline5: GoogleFonts.getFont('Oswald',
-              textStyle: const TextStyle(color: wdfwGreen400)),
-          headline6: GoogleFonts.getFont('Montserrat Alternates',
-              textStyle: const TextStyle(color: wdfwGreyCool50)),
+          headline3: ThemeData.dark().textTheme.headline3?.copyWith(
+              fontFamily: 'Montserrat Alternates', color: wdfwGreen300),
+          headline4: ThemeData.dark()
+              .textTheme
+              .headline4
+              ?.copyWith(fontFamily: 'Oswald', color: wdfwGreen300),
+          headline5: ThemeData.dark()
+              .textTheme
+              .headline5
+              ?.copyWith(fontFamily: 'Oswald', color: wdfwGreen400),
+          headline6: ThemeData.dark().textTheme.headline6?.copyWith(
+              fontFamily: 'Montserrat Alternates', color: wdfwGreyCool50),
           subtitle1: ThemeData.dark().textTheme.headline3,
           subtitle2: ThemeData.dark().textTheme.subtitle1,
-          bodyText1: GoogleFonts.getFont('Montserrat',
-              textStyle: const TextStyle(color: wdfwGreyCool200)),
-          bodyText2: GoogleFonts.getFont('Montserrat',
-              textStyle:
-                  const TextStyle(color: wdfwGreyCool200, fontSize: 16.0)),
+          bodyText1: ThemeData.dark()
+              .textTheme
+              .bodyText1
+              ?.copyWith(fontFamily: 'Montserrat', color: wdfwGreyCool200),
+          bodyText2: ThemeData.dark().textTheme.bodyText2?.copyWith(
+              fontFamily: 'Montserrat', color: wdfwGreyCool200, fontSize: 16.0),
           caption: ThemeData.dark().textTheme.bodyText2,
           button: ThemeData.dark().textTheme.caption,
           overline: ThemeData.dark().textTheme.button,
@@ -344,8 +345,11 @@ class WDFWTheme extends Theme {
         scrollbarTheme: ThemeData.dark().scrollbarTheme,
         bottomAppBarTheme: ThemeData.dark().bottomAppBarTheme,
         dialogTheme: DialogTheme(
-            titleTextStyle:
-                GoogleFonts.getFont('Montserrat Alternates', fontSize: 26)),
+          titleTextStyle: ThemeData.dark()
+              .dialogTheme
+              .titleTextStyle
+              ?.copyWith(fontFamily: 'Montserrat Alternates', fontSize: 26),
+        ),
         floatingActionButtonTheme: ThemeData.dark().floatingActionButtonTheme,
         navigationRailTheme: ThemeData.dark().navigationRailTheme,
         typography: ThemeData.dark().typography,
@@ -379,8 +383,12 @@ class WDFWTheme extends Theme {
                 .cupertinoOverrideTheme
                 ?.textTheme
                 ?.pickerTextStyle,
-            dateTimePickerTextStyle: GoogleFonts.getFont('Oswald',
-                fontSize: 24, color: wdfwGreen700),
+            dateTimePickerTextStyle: ThemeData.dark()
+                .cupertinoOverrideTheme
+                ?.textTheme
+                ?.dateTimePickerTextStyle
+                .copyWith(
+                    fontFamily: 'Oswald', fontSize: 24, color: wdfwGreen700),
           ),
           barBackgroundColor: wdfwGreyWarm900,
           // scaffoldBackgroundColor: ,
