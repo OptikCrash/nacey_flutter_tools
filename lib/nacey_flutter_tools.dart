@@ -118,8 +118,12 @@ const Duration matRadialReactionDuration = Duration(milliseconds: 200);
 const EdgeInsets matListPadding = EdgeInsets.symmetric(vertical: 8.0);
 const EdgeInsets matTabLabelPadding = EdgeInsets.symmetric(horizontal: 16.0);
 
+const double winToolbarHeight = 50.0;
+const double winNavMenuWidth = 360.0;
+
 class OSWidgetProvider extends StatefulWidget {
   const OSWidgetProvider({
+    super.key,
     required this.builder,
     this.initialOS,
     this.settings,
